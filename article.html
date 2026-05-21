@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XRP Settlement Pressure Reshapes Asia's Crypto Risk Map — TheCCPress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/article.css" />
+</head>
+<body>
+
+  <!-- READING PROGRESS BAR -->
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <!-- BREAKING TICKER -->
+  <div class="ticker-bar">
+    <span class="ticker-label">LIVE</span>
+    <div class="ticker-track">
+      <div class="ticker-content">
+        <span>XRP legal pressure expands across Asia as regulators increase scrutiny</span>
+        <span class="ticker-sep">◆</span>
+        <span>BlackRock crypto earnings beat expectations as ETF flows return</span>
+        <span class="ticker-sep">◆</span>
+        <span>DeFi hacks drop 28% in Q1 but exploit value hits record high</span>
+        <span class="ticker-sep">◆</span>
+        <span>US lawmakers reintroduce stablecoin bill with bipartisan support</span>
+        <span class="ticker-sep">◆</span>
+        <span>Institutional demand for ETFs signals new cycle leadership emerging</span>
+        <span class="ticker-sep">◆</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner container">
+      <div class="header-top">
+        <div class="header-date">Wednesday, April 15, 2025</div>
+        <div class="header-brand">
+          <a href="index.html" class="brand-logo">
+            <span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span>
+          </a>
+          <p class="brand-tagline">BLOCKCHAIN&nbsp;•&nbsp;CRYPTOCURRENCY&nbsp;•&nbsp;NARRATIVE JOURNALISM</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-search" id="searchToggle" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button class="btn-theme" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--dark">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </span>
+            <span class="theme-icon theme-icon--light" style="display:none">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </span>
+          </button>
+          <a href="#" class="btn-subscribe">Subscribe</a>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="stories.html" class="nav-link">Stories</a></li>
+          <li><a href="conflicts.html" class="nav-link active">Conflicts</a></li>
+          <li><a href="people.html" class="nav-link">People</a></li>
+          <li><a href="power.html" class="nav-link">Power</a></li>
+          <li><a href="investigations.html" class="nav-link">Investigations</a></li>
+        </ul>
+        <div class="nav-edition">
+          <span class="edition-dot"></span>
+          <span>Editorial Edition</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-overlay-inner">
+      <button class="search-close" id="searchClose" aria-label="Close search">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="search-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon-big"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="search-input-big" placeholder="Search stories, conflicts, people..." id="searchInput" autocomplete="off" />
+      </div>
+      <div class="search-trending">
+        <span class="search-section-label">Trending</span>
+        <div class="trending-tags">
+          <button class="trending-tag">XRP regulation</button>
+          <button class="trending-tag">Bitcoin ETF flows</button>
+          <button class="trending-tag">SEC enforcement</button>
+          <button class="trending-tag">Stablecoin bill</button>
+          <button class="trending-tag">DeFi hacks Q1</button>
+        </div>
+      </div>
+      <div class="search-results" id="searchResults">
+        <span class="search-section-label">Recent</span>
+        <div class="search-result-list">
+          <a href="article.html" class="search-result-item">
+            <div class="sr-meta"><span class="tag tag--conflicts">CONFLICTS</span><span class="sr-time">4h ago</span></div>
+            <p class="sr-title">XRP Settlement Pressure Reshapes Asia's Crypto Risk Map</p>
+          </a>
+          <a href="article.html" class="search-result-item">
+            <div class="sr-meta"><span class="tag tag--stories">STORIES</span><span class="sr-time">6h ago</span></div>
+            <p class="sr-title">Bitcoin ETFs are back in focus, but the real story is who is setting the tone</p>
+          </a>
+          <a href="article.html" class="search-result-item">
+            <div class="sr-meta"><span class="tag tag--invest">INVESTIGATIONS</span><span class="sr-time">1d ago</span></div>
+            <p class="sr-title">Behind the rebound narrative, old structural weaknesses are still sitting in plain sight</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE BACK NAV -->
+  <div class="article-breadcrumb container">
+    <a href="index.html" class="breadcrumb-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Homepage
+    </a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="conflicts.html" class="breadcrumb-cat">Conflicts</a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">XRP Settlement Pressure</span>
+  </div>
+
+  <!-- ARTICLE HERO -->
+  <div class="article-hero">
+    <div class="article-hero-img" style="background-image:url('https://picsum.photos/seed/xrp-asia-map/1600/700?grayscale')"></div>
+    <div class="article-hero-overlay">
+      <div class="container">
+        <div class="article-hero-tags">
+          <span class="tag tag--conflicts">CONFLICTS</span>
+          <span class="tag tag--reg">REGULATION</span>
+        </div>
+        <h1 class="article-hero-title">XRP Settlement Pressure Reshapes Asia's Crypto Risk Map</h1>
+        <div class="article-hero-meta">
+          <span>BY EDITORIAL DESK</span>
+          <span class="meta-dot">·</span>
+          <span>9 MIN READ</span>
+          <span class="meta-dot">·</span>
+          <span>APRIL 15, 2025</span>
+        </div>
+        <div class="article-share">
+          <span class="share-label">SHARE</span>
+          <button class="share-btn" title="Share on X" onclick="window.open('https://x.com/intent/tweet?text=XRP+Settlement+Pressure+Reshapes+Asia','_blank')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </button>
+          <button class="share-btn" title="Copy link" id="copyLink">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE BODY -->
+  <div class="article-layout container">
+
+    <!-- MAIN CONTENT -->
+    <main class="article-main">
+
+      <p class="article-lead">The legal siege around XRP has entered a new phase. What began as a bilateral dispute between Ripple and the U.S. Securities and Exchange Commission has quietly morphed into something far broader — a pressure system that now extends across fourteen Asian jurisdictions, reshaping how exchanges assess counterparty risk and how regulators think about precedent.</p>
+
+      <!-- EVIDENCE BLOCK -->
+      <div class="evidence-block">
+        <div class="eb-header">
+          <span class="eb-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </span>
+          KEY FINDINGS — EVIDENCE LEVEL: MULTI-SOURCE
+        </div>
+        <div class="eb-grid">
+          <div class="eb-stat">
+            <span class="eb-num">14</span>
+            <span class="eb-desc">Asian jurisdictions with informal XRP listing guidance</span>
+          </div>
+          <div class="eb-stat">
+            <span class="eb-num">+340bps</span>
+            <span class="eb-desc">Avg XRP bid-ask spread increase across regional venues Q1 2025</span>
+          </div>
+          <div class="eb-stat">
+            <span class="eb-num">3</span>
+            <span class="eb-desc">Major exchanges that delisted XRP pairs in last 90 days</span>
+          </div>
+          <div class="eb-stat">
+            <span class="eb-num">$2.1B</span>
+            <span class="eb-desc">Estimated liquidity reduction in Asian XRP markets</span>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="article-h2" id="pressure-map">The Pressure Map</h2>
+      <p>For two years, crypto exchanges operating across Southeast Asia, Japan, and South Korea have monitored the Ripple case like a weather system forming offshore. The question was never whether it would arrive, but what shape it would take when it did. In Q1 2025, it took the shape of risk memos, informal compliance briefings, and the quiet removal of trading pairs.</p>
+      <p>The pattern is not random. Regulators in Singapore, Hong Kong, and Tokyo — three markets that collectively represent roughly 38% of Asia's crypto trading volume — have issued what one compliance officer described as "sub-regulatory guidance": informal signals that stop short of binding rules but carry the unmistakable weight of future enforcement posture.</p>
+      <p>"The SEC's posture isn't just about one token," says the compliance head of a Singapore-based exchange, speaking on background. "It's establishing a template that regulators from Seoul to Singapore are quietly reading as doctrine." This kind of regulatory osmosis — where one jurisdiction's enforcement posture shapes another's informal guidance — is a well-documented phenomenon in traditional finance. Its arrival in crypto marks a maturation of the regulatory relationship that most industry participants were not fully prepared for.</p>
+
+      <!-- PULL QUOTE -->
+      <blockquote class="pull-quote">
+        <p>"This story is not about one lawsuit. It shows how regulatory pressure is reshaping crypto liquidity across Asia — jurisdiction by jurisdiction, exchange by exchange."</p>
+        <cite>— TheCCPress Editorial Desk</cite>
+      </blockquote>
+
+      <h2 class="article-h2" id="whos-driving">Who's Driving the Shift</h2>
+      <p>The most significant development isn't the litigation itself — it's the secondary cascade it's triggering among regulators who never expected to weigh in on a U.S. securities dispute. The cascade runs through three distinct channels: bilateral regulatory dialogue, domestic risk-classification frameworks, and exchange-level compliance postures that preemptively absorb external signals.</p>
+      <p>In Japan, the Financial Services Agency updated its internal classification memo for digital assets in February 2025. XRP remained listed as a "watchlist" asset — a designation that doesn't trigger mandatory delisting but prompts enhanced due diligence requirements for any exchange that clears XRP pairs through Japanese banking infrastructure. Two exchanges acted on this signal within six weeks.</p>
+      <p>South Korea's Financial Intelligence Unit took a different approach. Rather than signaling to exchanges, it signaled to banks — warning that institutions providing settlement services to exchanges with high XRP exposure would face "enhanced correspondent banking scrutiny." The effect was functionally equivalent to a delisting pressure, but the regulatory fingerprints were absent.</p>
+
+      <h2 class="article-h2" id="liquidity-consequences">Liquidity Consequences</h2>
+      <p>The XRP story is now fundamentally a liquidity story. When multiple major exchanges delist or restrict a token's pairs, the effect on price is secondary to the effect on market structure. Bid-ask spreads widen. Institutional buyers — who require tight spreads and deep order books to execute meaningful positions — reduce exposure not because of price risk but because of execution risk.</p>
+      <p>This creates a feedback loop. Reduced institutional participation leads to reduced market depth. Reduced market depth makes execution harder for retail participants. Retail exodus reduces the political case for institutional re-entry. And reduced institutional presence makes the token more susceptible to headline-driven volatility — which in turn reinforces compliance departments' caution.</p>
+      <p>TheCCPress has identified $2.1 billion in estimated liquidity reduction across Asian XRP markets since the start of the year. This figure, derived from on-chain volume data, order book depth snapshots, and exchange reporting, represents the structural liquidity floor that has been removed — not daily trading volume lost, but the systemic capacity for large, efficient trades.</p>
+
+      <!-- NARRATIVE TRAIL EMBEDDED -->
+      <div class="article-narrative-trail">
+        <div class="trail-header">NARRATIVE TRAIL — WHERE THIS STORY STANDS</div>
+        <div class="trail-steps">
+          <div class="trail-step">
+            <div class="step-dot step-dot--active"></div>
+            <div class="step-label">XRP Legal Pressure</div>
+            <div class="step-stage">Origin</div>
+          </div>
+          <div class="trail-connector"></div>
+          <div class="trail-step">
+            <div class="step-dot step-dot--active"></div>
+            <div class="step-label">Asia Regulation Reaction</div>
+            <div class="step-stage">Amplification</div>
+          </div>
+          <div class="trail-connector"></div>
+          <div class="trail-step">
+            <div class="step-dot step-dot--active"></div>
+            <div class="step-label">Exchange Liquidity Shift</div>
+            <div class="step-stage">Market Impact</div>
+          </div>
+          <div class="trail-connector"></div>
+          <div class="trail-step">
+            <div class="step-dot"></div>
+            <div class="step-label">Regulatory Settlement</div>
+            <div class="step-stage">Resolution (Pending)</div>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="article-h2" id="what-comes-next">What Comes Next</h2>
+      <p>The most likely near-term development is not resolution but entrenchment. Regulatory signals, once issued, are rarely retracted before an enforcement action concludes. The informal guidance circulating across Asian jurisdictions will remain in effect until the SEC-Ripple litigation reaches a definitive conclusion — or until a new regulatory framework explicitly addresses digital asset classification at the international level.</p>
+      <p>Neither outcome is imminent. The SEC's appellate posture in the Ripple case suggests a 12–18 month timeline for final resolution. The Basel Committee on Banking Supervision's digital asset exposure standards, finalized in late 2023, provide a framework for banks but leave exchanges operating in a compliance gray zone with respect to token-specific risk.</p>
+      <p>What this means for the next cycle is structural: any token with unresolved regulatory classification risk will face the same pressure pattern that XRP is currently navigating. The infrastructure of informal guidance, enhanced due diligence requirements, and correspondent banking signals that regulators have deployed against XRP represents a template — one that requires no new legislation and leaves no formal regulatory trail.</p>
+
+      <!-- SOURCES -->
+      <div class="article-sources">
+        <div class="sources-header">SOURCE TRANSPARENCY</div>
+        <ul class="sources-list">
+          <li><span class="source-type">On-chain Analytics</span> — XRP order book depth data, Kaiko Research, Q1 2025</li>
+          <li><span class="source-type">Regulatory Filing</span> — Japan FSA internal classification memo, February 2025</li>
+          <li><span class="source-type">Insider Commentary</span> — Senior compliance officer, Singapore exchange (on background)</li>
+          <li><span class="source-type">Exchange Data</span> — Bid-ask spread analysis, CoinMetrics, January–April 2025</li>
+          <li><span class="source-type">Legal Documents</span> — SEC v. Ripple Labs, U.S. District Court, S.D.N.Y.</li>
+          <li><span class="source-type">Regulatory Reports</span> — South Korea FIU correspondent banking guidance, March 2025</li>
+        </ul>
+      </div>
+
+      <!-- TAGS -->
+      <div class="article-tags">
+        <span class="tag tag--conflicts">CONFLICTS</span>
+        <span class="tag tag--reg">REGULATION</span>
+        <span class="tag tag--exchange">EXCHANGES</span>
+        <span class="tag tag--invest">INVESTIGATIONS</span>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="article-sidebar">
+
+      <!-- STICKY WRAPPER -->
+      <div class="sidebar-sticky">
+
+        <!-- TABLE OF CONTENTS -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">IN THIS ARTICLE</h3>
+          <ul class="toc-list">
+            <li><a href="#pressure-map" class="toc-link">The Pressure Map</a></li>
+            <li><a href="#whos-driving" class="toc-link">Who's Driving the Shift</a></li>
+            <li><a href="#liquidity-consequences" class="toc-link">Liquidity Consequences</a></li>
+            <li><a href="#what-comes-next" class="toc-link">What Comes Next</a></li>
+          </ul>
+        </div>
+
+        <!-- EDITORIAL THESIS -->
+        <div class="sidebar-widget">
+          <div class="widget-header">
+            <h3 class="widget-title">EDITORIAL THESIS</h3>
+          </div>
+          <div class="editorial-thesis">
+            <div class="thesis-header">EDITORIAL THESIS</div>
+            <p class="thesis-text">This story is not about one lawsuit. It shows how regulatory pressure is reshaping crypto liquidity across Asia.</p>
+            <div class="thesis-stage">
+              <span class="stage-label">STAGE</span>
+              <span class="stage-value escalation">Escalation</span>
+              <button class="stage-why" id="whyStageBtn">Why this stage?</button>
+            </div>
+          </div>
+          <!-- WHY STAGE TOOLTIP -->
+          <div class="why-stage-popup" id="whyStagePop" aria-hidden="true">
+            <button class="popup-close" id="whyStageClose">×</button>
+            <h4>Why "Escalation"?</h4>
+            <p>This story has moved beyond its origin point (the U.S. litigation) into active amplification across secondary markets. Multiple jurisdictions are now acting on the signal, exchange behavior is shifting, and liquidity effects are measurable — all hallmarks of a narrative in escalation rather than containment.</p>
+            <p>We move a story to "Resolution" only when enforcement actions conclude or formal policy frameworks are adopted.</p>
+          </div>
+        </div>
+
+        <!-- POWER MAP WIDGET -->
+        <div class="sidebar-widget widget-power-map">
+          <div class="widget-header">
+            <h3 class="widget-title">POWER MAP</h3>
+            <p class="widget-subtitle">Who holds influence in this story?</p>
+          </div>
+          <ul class="power-list">
+            <li class="power-item">
+              <span class="power-name">Regulators</span>
+              <div class="power-bar-wrap"><div class="power-bar" style="--pct:90%"></div></div>
+              <span class="power-level power-level--high">High</span>
+            </li>
+            <li class="power-item">
+              <span class="power-name">Exchanges</span>
+              <div class="power-bar-wrap"><div class="power-bar" style="--pct:78%"></div></div>
+              <span class="power-level power-level--high">High</span>
+            </li>
+            <li class="power-item">
+              <span class="power-name">Institutional Funds</span>
+              <div class="power-bar-wrap"><div class="power-bar" style="--pct:55%"></div></div>
+              <span class="power-level power-level--med">Medium</span>
+            </li>
+            <li class="power-item">
+              <span class="power-name">Founders / Ripple</span>
+              <div class="power-bar-wrap"><div class="power-bar" style="--pct:42%"></div></div>
+              <span class="power-level power-level--med">Medium</span>
+            </li>
+            <li class="power-item">
+              <span class="power-name">Retail / Community</span>
+              <div class="power-bar-wrap"><div class="power-bar" style="--pct:20%"></div></div>
+              <span class="power-level power-level--low">Low</span>
+            </li>
+          </ul>
+          <button class="view-all-link" id="fullPowerMapBtn">See full power map →</button>
+        </div>
+
+        <!-- FOLLOW -->
+        <div class="sidebar-widget widget-follow">
+          <h3 class="widget-title">FOLLOW THIS NARRATIVE</h3>
+          <p class="widget-body">Get updates when this story evolves.</p>
+          <form class="follow-form" onsubmit="return false;">
+            <input type="email" placeholder="Enter your email" class="follow-input" />
+            <button type="submit" class="follow-btn">Follow Narrative</button>
+          </form>
+        </div>
+
+        <!-- RELATED -->
+        <div class="sidebar-widget">
+          <h3 class="widget-title">RELATED STORIES</h3>
+          <ul class="related-list">
+            <li class="related-item">
+              <a href="article.html" class="related-link">
+                <span class="tag tag--conflicts">CONFLICTS</span>
+                <p>The SEC's latest posture is less about one case and more about future leverage</p>
+              </a>
+            </li>
+            <li class="related-item">
+              <a href="article.html" class="related-link">
+                <span class="tag tag--power">POWER</span>
+                <p>A few trading venues now shape how the market perceives safety and legitimacy</p>
+              </a>
+            </li>
+            <li class="related-item">
+              <a href="article.html" class="related-link">
+                <span class="tag tag--invest">INVESTIGATIONS</span>
+                <p>Behind the rebound narrative, old structural weaknesses remain</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </aside>
+  </div>
+
+  <!-- RELATED ARTICLES ROW -->
+  <div class="related-section container">
+    <h3 class="related-section-title">More from <span>Conflicts</span></h3>
+    <div class="cards-grid cards-grid--3">
+      <article class="editorial-card">
+        <div class="card-thumb" style="background-image:url('https://picsum.photos/seed/sec-court/800/320?grayscale')">
+          <div class="card-thumb-overlay"></div>
+          <span class="card-signal signal--escalation">Escalation</span>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag tag--conflicts">CONFLICTS</span><span class="tag tag--reg">REGULATION</span></div>
+          <h3 class="card-title">The SEC's latest posture is less about one case and more about future leverage</h3>
+          <p class="card-desc">What today's posture can signal before enforcement ever begins.</p>
+          <div class="card-meta">APRIL 15, 2025 &nbsp;•&nbsp; 8 MIN READ</div>
+        </div>
+      </article>
+      <article class="editorial-card">
+        <div class="card-thumb" style="background-image:url('https://picsum.photos/seed/exchange-floor/800/320?grayscale')">
+          <div class="card-thumb-overlay"></div>
+          <span class="card-signal signal--reaction">Market Reaction</span>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag tag--conflicts">CONFLICTS</span></div>
+          <h3 class="card-title">Exchange rivalries are no longer product wars, they are liquidity wars</h3>
+          <p class="card-desc">Why distribution power is becoming more important than feature depth.</p>
+          <div class="card-meta">APRIL 15, 2025 &nbsp;•&nbsp; 6 MIN READ</div>
+        </div>
+      </article>
+      <article class="editorial-card">
+        <div class="card-thumb" style="background-image:url('https://picsum.photos/seed/blockchain-data/800/320?grayscale')">
+          <div class="card-thumb-overlay"></div>
+          <span class="card-signal signal--early">Early Signal</span>
+        </div>
+        <div class="card-body">
+          <div class="card-tags"><span class="tag tag--invest">INVESTIGATIONS</span></div>
+          <h3 class="card-title">Behind the rebound narrative, old structural weaknesses are still sitting in plain sight</h3>
+          <p class="card-desc">Deep reporting on hidden counterparty and liquidity risks.</p>
+          <div class="card-meta">APRIL 14, 2025 &nbsp;•&nbsp; 12 MIN READ</div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand-logo brand-logo--footer">
+            <span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span>
+          </a>
+          <p class="footer-brand-desc">Narrative-first crypto journalism focused on stories, conflicts, people, power, and investigations.</p>
+          <p class="footer-tagline">Built for clarity. Designed for readers who think deeper.</p>
+        </div>
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Sections</h4>
+          <ul class="footer-nav">
+            <li><a href="stories.html">Stories</a></li>
+            <li><a href="conflicts.html">Conflicts</a></li>
+            <li><a href="people.html">People</a></li>
+            <li><a href="power.html">Power</a></li>
+            <li><a href="investigations.html">Investigations</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Utility</h4>
+          <ul class="footer-nav">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Editorial Standards</a></li>
+            <li><a href="#">Content Disclaimer</a></li>
+            <li><a href="#">Advertise</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter-col">
+          <h4 class="footer-col-title">Newsletter</h4>
+          <p class="newsletter-desc">Get the week's sharpest stories on regulation, power shifts, and market narratives.</p>
+          <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Email address" class="newsletter-input" />
+            <button type="submit" class="newsletter-btn">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 TheCCPress. All rights reserved.</p>
+        <p class="footer-copy">BLOCKCHAIN &nbsp;•&nbsp; CRYPTOCURRENCY &nbsp;•&nbsp; NARRATIVE JOURNALISM</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- POWER MAP MODAL -->
+  <div class="modal-overlay" id="powerMapModal" aria-hidden="true">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">FULL POWER MAP</h3>
+        <p class="modal-subtitle">Influence distribution in the XRP regulatory story</p>
+        <button class="modal-close" id="powerMapClose" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="powermap-full">
+          <div class="pm-tier pm-tier--high">
+            <div class="pm-tier-label">HIGH INFLUENCE</div>
+            <div class="pm-nodes">
+              <div class="pm-node">
+                <div class="pm-node-icon" style="background:var(--red-dim);color:var(--red)">⚖</div>
+                <div class="pm-node-name">U.S. SEC</div>
+                <div class="pm-node-role">Lead Enforcement</div>
+              </div>
+              <div class="pm-node">
+                <div class="pm-node-icon" style="background:var(--orange-dim);color:var(--orange)">🏛</div>
+                <div class="pm-node-name">Asian Regulators</div>
+                <div class="pm-node-role">Signal Amplifiers</div>
+              </div>
+              <div class="pm-node">
+                <div class="pm-node-icon" style="background:var(--blue-dim);color:var(--blue)">⬡</div>
+                <div class="pm-node-name">Major Exchanges</div>
+                <div class="pm-node-role">Market Access Control</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-tier pm-tier--medium">
+            <div class="pm-tier-label">MEDIUM INFLUENCE</div>
+            <div class="pm-nodes">
+              <div class="pm-node">
+                <div class="pm-node-icon" style="background:var(--purple-dim);color:var(--purple)">🏦</div>
+                <div class="pm-node-name">Institutional Funds</div>
+                <div class="pm-node-role">Liquidity Providers</div>
+              </div>
+              <div class="pm-node">
+                <div class="pm-node-icon" style="background:var(--teal-dim);color:var(--teal)">◈</div>
+                <div class="pm-node-name">Ripple Labs</div>
+                <div class="pm-node-role">Defendant / Advocate</div>
+              </div>
+            </div>
+          </div>
+          <div class="pm-tier pm-tier--low">
+            <div class="pm-tier-label">LOW INFLUENCE</div>
+            <div class="pm-nodes">
+              <div class="pm-node">
+                <div class="pm-node-icon" style="background:var(--border-subtle);color:var(--text-muted)">◎</div>
+                <div class="pm-node-name">Retail Community</div>
+                <div class="pm-node-role">Market Participants</div>
+              </div>
+              <div class="pm-node">
+                <div class="pm-node-icon" style="background:var(--border-subtle);color:var(--text-muted)">◉</div>
+                <div class="pm-node-name">Market Makers</div>
+                <div class="pm-node-role">Spread / Depth</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/article.js"></script>
+</body>
+</html>

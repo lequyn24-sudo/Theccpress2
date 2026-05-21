@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stories — TheCCPress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/article.css" />
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+  <div class="ticker-bar">
+    <span class="ticker-label">LIVE</span>
+    <div class="ticker-track">
+      <div class="ticker-content">
+        <span>XRP legal pressure expands across Asia</span><span class="ticker-sep">◆</span>
+        <span>BlackRock crypto earnings beat expectations</span><span class="ticker-sep">◆</span>
+        <span>DeFi hacks drop 28% in Q1 but exploit value hits record</span><span class="ticker-sep">◆</span>
+        <span>US lawmakers reintroduce stablecoin bill</span><span class="ticker-sep">◆</span>
+      </div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="header-inner container">
+      <div class="header-top">
+        <div class="header-date">Wednesday, April 15, 2025</div>
+        <div class="header-brand">
+          <a href="index.html" class="brand-logo">
+            <span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span>
+          </a>
+          <p class="brand-tagline">BLOCKCHAIN&nbsp;•&nbsp;CRYPTOCURRENCY&nbsp;•&nbsp;NARRATIVE JOURNALISM</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-search" id="searchToggle" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button class="btn-theme" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--dark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+            <span class="theme-icon theme-icon--light" style="display:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg></span>
+          </button>
+          <a href="#" class="btn-subscribe">Subscribe</a>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="stories.html" class="nav-link active">Stories</a></li>
+          <li><a href="conflicts.html" class="nav-link">Conflicts</a></li>
+          <li><a href="people.html" class="nav-link">People</a></li>
+          <li><a href="power.html" class="nav-link">Power</a></li>
+          <li><a href="investigations.html" class="nav-link">Investigations</a></li>
+        </ul>
+        <div class="nav-edition"><span class="edition-dot"></span><span>Editorial Edition</span></div>
+      </nav>
+    </div>
+  </header>
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-overlay-inner">
+      <button class="search-close" id="searchClose" aria-label="Close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <div class="search-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon-big"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="search-input-big" placeholder="Search stories, conflicts, people..." id="searchInput" autocomplete="off" />
+      </div>
+      <div class="search-trending">
+        <span class="search-section-label">Trending</span>
+        <div class="trending-tags">
+          <button class="trending-tag">XRP regulation</button>
+          <button class="trending-tag">Bitcoin ETF flows</button>
+          <button class="trending-tag">SEC enforcement</button>
+          <button class="trending-tag">Stablecoin bill</button>
+        </div>
+      </div>
+      <div class="search-results" id="searchResults">
+        <span class="search-section-label">Recent</span>
+        <div class="search-result-list">
+          <a href="article.html" class="search-result-item">
+            <div class="sr-meta"><span class="tag tag--conflicts">CONFLICTS</span><span class="sr-time">4h ago</span></div>
+            <p class="sr-title">XRP Settlement Pressure Reshapes Asia&#39;s Crypto Risk Map</p>
+          </a>
+          <a href="article.html" class="search-result-item">
+            <div class="sr-meta"><span class="tag tag--stories">STORIES</span><span class="sr-time">6h ago</span></div>
+            <p class="sr-title">Bitcoin ETFs are back in focus, but the real story is who is setting the tone</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="article-breadcrumb container">
+    <a href="index.html" class="breadcrumb-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Homepage
+    </a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">Stories</span>
+  </div>
+  <div class="category-hero">
+    <div class="category-hero-inner container">
+      <div>
+        <span class="category-hero-tag">SECTION</span>
+        <h1 class="category-hero-title">Stories</h1>
+        <p class="category-hero-desc">Market narratives, company news, and analyst takes—curated by editors.</p>
+      </div>
+      <div class="section-filters">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Latest</button>
+        <button class="filter-btn">Most Read</button>
+      </div>
+    </div>
+  </div>
+  <div class="category-layout container">
+    <div>
+      <div class="listing-grid">
+      <a href="article.html" class="listing-card">
+        <div class="listing-thumb" style="background-image:url('https://picsum.photos/seed/btc-etf/600/280?grayscale')">
+          <div class="listing-thumb-overlay"></div>
+        </div>
+        <div class="listing-body">
+          <div class="card-tags"><span class="tag tag--stories">STORIES</span><span class="tag tag--marketdrama">MARKET DRAMA</span><span class="card-signal signal--escalation">Escalation</span></div>
+          <h3 class="listing-title">Bitcoin ETFs are back in focus, but the real story is who is setting the tone</h3>
+          <p class="listing-desc">A watershed look at where institutional capital is quietly reallocating next.</p>
+          <div class="listing-meta">APRIL 15, 2025 &nbsp;•&nbsp; 6 MIN READ</div>
+        </div>
+      </a>
+      <a href="article.html" class="listing-card">
+        <div class="listing-thumb" style="background-image:url('https://picsum.photos/seed/company-fall/600/280?grayscale')">
+          <div class="listing-thumb-overlay"></div>
+        </div>
+        <div class="listing-body">
+          <div class="card-tags"><span class="tag tag--stories">STORIES</span><span class="tag tag--companymoves">COMPANY MOVES</span><span class="card-signal signal--early">Early Signal</span></div>
+          <h3 class="listing-title">The firms that expanded too quickly are now writing crypto's next cautionary chapter</h3>
+          <p class="listing-desc">Release cycles, treasury stakes and valuation risks laid out in detail.</p>
+          <div class="listing-meta">APRIL 15, 2025 &nbsp;•&nbsp; 7 MIN READ</div>
+        </div>
+      </a>
+      <a href="article.html" class="listing-card">
+        <div class="listing-thumb" style="background-image:url('https://picsum.photos/seed/token-spiral/600/280?grayscale')">
+          <div class="listing-thumb-overlay"></div>
+        </div>
+        <div class="listing-body">
+          <div class="card-tags"><span class="tag tag--stories">STORIES</span><span class="tag tag--projectretail">PROJECT RETAIL</span><span class="card-signal signal--reaction">Market Reaction</span></div>
+          <h3 class="listing-title">When a once-hot token loses narrative support, the unwind becomes cultural too</h3>
+          <p class="listing-desc">Why attention collapse can mirror a memecoin price collapse.</p>
+          <div class="listing-meta">APRIL 15, 2025 &nbsp;•&nbsp; 5 MIN READ</div>
+        </div>
+      </a>
+      <a href="article.html" class="listing-card">
+        <div class="listing-thumb" style="background-image:url('https://picsum.photos/seed/defi-q1/600/280?grayscale')">
+          <div class="listing-thumb-overlay"></div>
+        </div>
+        <div class="listing-body">
+          <div class="card-tags"><span class="tag tag--stories">STORIES</span><span class="tag tag--marketdrama">MARKET DRAMA</span><span class="card-signal signal--escalation">Escalation</span></div>
+          <h3 class="listing-title">DeFi protocol revenues diverged sharply in Q1 — and the gap is widening</h3>
+          <p class="listing-desc">The data behind which protocols retained users and which lost ground.</p>
+          <div class="listing-meta">APRIL 15, 2025 &nbsp;•&nbsp; 8 MIN READ</div>
+        </div>
+      </a>
+      <a href="article.html" class="listing-card">
+        <div class="listing-thumb" style="background-image:url('https://picsum.photos/seed/stablecoin-inflow/600/280?grayscale')">
+          <div class="listing-thumb-overlay"></div>
+        </div>
+        <div class="listing-body">
+          <div class="card-tags"><span class="tag tag--stories">STORIES</span><span class="tag tag--marketdrama">MARKET DRAMA</span><span class="card-signal signal--early">Early Signal</span></div>
+          <h3 class="listing-title">Stablecoin inflows hit record in April — a signal worth reading carefully</h3>
+          <p class="listing-desc">Record issuance doesn't always mean bullish pressure. Here's why.</p>
+          <div class="listing-meta">APRIL 15, 2025 &nbsp;•&nbsp; 6 MIN READ</div>
+        </div>
+      </a>
+      <a href="article.html" class="listing-card">
+        <div class="listing-thumb" style="background-image:url('https://picsum.photos/seed/layer2-war/600/280?grayscale')">
+          <div class="listing-thumb-overlay"></div>
+        </div>
+        <div class="listing-body">
+          <div class="card-tags"><span class="tag tag--stories">STORIES</span><span class="tag tag--projectretail">PROJECT RETAIL</span><span class="card-signal signal--reaction">Market Reaction</span></div>
+          <h3 class="listing-title">Layer 2 wars are entering a new phase — and it's not about fees anymore</h3>
+          <p class="listing-desc">The competition has shifted to ecosystem depth, not execution speed.</p>
+          <div class="listing-meta">APRIL 15, 2025 &nbsp;•&nbsp; 9 MIN READ</div>
+        </div>
+      </a>
+      </div>
+      <div class="listing-pagination">
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn">→</button>
+      </div>
+    </div>
+    <aside class="category-sidebar">
+      <div class="sidebar-widget">
+        <h3 class="widget-title">MOST READ THIS WEEK</h3>
+        <ol class="most-read-list">
+          <li class="most-read-item"><span class="mr-num">01</span><a href="article.html" class="mr-headline">Why regulators are quietly watching crypto risk</a></li>
+          <li class="most-read-item"><span class="mr-num">02</span><a href="article.html" class="mr-headline">The new exchange power map after ETF momentum returns</a></li>
+          <li class="most-read-item"><span class="mr-num">03</span><a href="article.html" class="mr-headline">How founder narratives now steer token market reality</a></li>
+          <li class="most-read-item"><span class="mr-num">04</span><a href="article.html" class="mr-headline">What collapse setups usually look like before the headlines</a></li>
+          <li class="most-read-item"><span class="mr-num">05</span><a href="article.html" class="mr-headline">Bitcoin&#39;s liquidity shift: Signals worth watching</a></li>
+        </ol>
+      </div>
+      <div class="sidebar-widget widget-follow">
+        <h3 class="widget-title">NEWSLETTER</h3>
+        <p class="widget-body">Get the week&#39;s sharpest crypto journalism.</p>
+        <form class="follow-form" onsubmit="return false;">
+          <input type="email" placeholder="Enter your email" class="follow-input" />
+          <button type="submit" class="follow-btn">Subscribe</button>
+        </form>
+      </div>
+      <div class="sidebar-widget widget-bias">
+        <div class="widget-header">
+          <h3 class="widget-title">NARRATIVE BIAS CHECK</h3>
+          <p class="widget-subtitle">Multiple angles. One truth.</p>
+        </div>
+        <div class="bias-angles">
+          <div class="bias-angle bias-angle--bull"><span class="angle-label">Bullish</span><p>Institutional demand and infrastructure maturation remain strong tailwinds.</p></div>
+          <div class="bias-angle bias-angle--bear"><span class="angle-label">Bearish</span><p>Regulatory pressure could limit liquidity and market access.</p></div>
+          <div class="bias-angle bias-angle--neutral"><span class="angle-label">Neutral</span><p>Fragmented liquidity makes the real impact hard to price.</p></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand-logo brand-logo--footer"><span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span></a>
+          <p class="footer-brand-desc">Narrative-first crypto journalism focused on stories, conflicts, people, power, and investigations.</p>
+          <p class="footer-tagline">Built for clarity. Designed for readers who think deeper.</p>
+        </div>
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Sections</h4>
+          <ul class="footer-nav">
+            <li><a href="stories.html">Stories</a></li>
+            <li><a href="conflicts.html">Conflicts</a></li>
+            <li><a href="people.html">People</a></li>
+            <li><a href="power.html">Power</a></li>
+            <li><a href="investigations.html">Investigations</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Utility</h4>
+          <ul class="footer-nav">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Editorial Standards</a></li>
+            <li><a href="#">Advertise</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter-col">
+          <h4 class="footer-col-title">Newsletter</h4>
+          <p class="newsletter-desc">Get the week&#39;s sharpest stories on regulation, power shifts, and market narratives.</p>
+          <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Email address" class="newsletter-input" />
+            <button type="submit" class="newsletter-btn">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&#169; 2025 TheCCPress. All rights reserved.</p>
+        <p class="footer-copy">BLOCKCHAIN &nbsp;&#x2022;&nbsp; CRYPTOCURRENCY &nbsp;&#x2022;&nbsp; NARRATIVE JOURNALISM</p>
+      </div>
+    </div>
+  </footer>
+  <script src="js/article.js"></script>
+</body>
+</html>
