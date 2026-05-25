@@ -212,9 +212,23 @@ const cardObserver = new IntersectionObserver(
         cardObserver.unobserve(entry.target);
       }
     });
-  },
-  { threshold: 0.1 }
+  }, {
+    threshold: 0.1
+  }
 );
+
+// Card click navigation: generate slug from title and navigate to article page
+document.querySelectorAll('.editorial-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const titleEl = card.querySelector('.card-title');
+    if (!titleEl) return;
+    const title = titleEl.textContent.trim();
+    const slug = title.toLowerCase()
+      .replace(/[^\w]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+    location.href = `articles/${slug}.html`;
+  });
+});
 
 document.querySelectorAll('.editorial-card, .investigation-banner').forEach((card) => {
   card.style.opacity = '0';

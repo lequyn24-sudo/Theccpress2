@@ -178,13 +178,45 @@ const powerObs2 = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.widget-power-map').forEach((el) => powerObs2.observe(el));
 
-// ── Card click → article ──
-document.querySelectorAll('.editorial-card, .listing-card').forEach((card) => {
-  card.style.cursor = 'pointer';
-  card.addEventListener('click', () => {
-    window.location.href = 'article.html';
+// ── Listing Pagination ──
+(function() {
+  const grid = document.querySelector('.listing-grid');
+  const pageBtns = document.querySelectorAll('.page-btn');
+  if (!grid || !pageBtns.length) return;
+
+  const cards = Array.from(grid.querySelectorAll('.listing-card'));
+  const perPage = 3;
+  const totalPages = Math.ceil(cards.length / perPage);
+  let currentPage = 1;
+
+  function showPage(page) {
+    currentPage = page;
+    cards.forEach((card, i) => {
+      card.style.display = (i >= (page - 1) * perPage && i < page * perPage) ? '' : 'none';
+    });
+    pageBtns.forEach(btn => {
+      const num = parseInt(btn.textContent);
+      btn.classList.toggle('active', num === page);
+    });
+  }
+
+  pageBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const text = btn.textContent.trim();
+      if (text === '→' || text === '>') {
+        if (currentPage < totalPages) showPage(currentPage + 1);
+      } else if (text === '←' || text === '<') {
+        if (currentPage > 1) showPage(currentPage - 1);
+      } else {
+        const num = parseInt(text);
+        if (!isNaN(num) && num >= 1 && num <= totalPages) showPage(num);
+      }
+    });
   });
-});
+
+  // Initialize
+  showPage(1);
+}());
 
 // ── Newsletter / Follow Forms ──
 document.querySelectorAll('.newsletter-form, .follow-form').forEach((form) => {

@@ -1,0 +1,258 @@
+const fs = require('fs');
+const path = require('path');
+
+const dataPath = path.join(__dirname, '..', 'data', 'articles.json');
+const articlesDir = path.join(__dirname, '..', 'articles');
+
+if (!fs.existsSync(articlesDir)) fs.mkdirSync(articlesDir, { recursive: true });
+
+const template = (a) => {
+  // Resolve hero image: check for 750x533 first, fall back to 350x250
+  let heroImgActual;
+  if (a.heroThumb) {
+    const large = path.join(__dirname, '..', 'mockup thumbnail', a.heroThumb + '-thumbnail-750x533.jpg');
+    const small = path.join(__dirname, '..', 'mockup thumbnail', a.heroThumb + '-thumbnail-350x250.jpg');
+    if (fs.existsSync(large)) {
+      heroImgActual = '../mockup%20thumbnail/' + a.heroThumb + '-thumbnail-750x533.jpg';
+    } else if (fs.existsSync(small)) {
+      heroImgActual = '../mockup%20thumbnail/' + a.heroThumb + '-thumbnail-350x250.jpg';
+    } else {
+      heroImgActual = '../mockup%20thumbnail/' + a.heroThumb + '-thumbnail-750x533.jpg';
+    }
+  } else {
+    heroImgActual = a.heroImage || 'https://picsum.photos/seed/article/1600/700?grayscale';
+  }
+
+  const findingsHTML = (a.findings || []).map(f => `
+          <div class="eb-stat">
+            <span class="eb-num">${f.num}</span>
+            <span class="eb-desc">${f.desc}</span>
+          </div>`).join('');
+
+  const sectionsHTML = (a.sections || []).map(s => `
+      <h2 class="article-h2" id="${s.id}">${s.title}</h2>
+      ${s.body}`).join('\n');
+
+  const tocHTML = (a.sections || []).map(s => `
+            <li><a href="#${s.id}" class="toc-link">${s.title}</a></li>`).join('');
+
+  const tagsHTML = (a.tags || []).map(t => `<span class="tag ${t.cls}">${t.label}</span>`).join('');
+
+  const sourcesHTML = (a.sources || []).map(s => `
+          <li><span class="source-type">${s.type}</span> — ${s.text}</li>`).join('');
+
+  const navActive = a.navActive || a.categoryLabel || '';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${a.title} — TheCCPress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/article.css" />
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+  <div class="ticker-bar">
+    <span class="ticker-label">LIVE</span>
+    <div class="ticker-track">
+      <div class="ticker-content">
+        <span>TheCCPress — Narrative-first crypto journalism</span><span class="ticker-sep">◆</span>
+        <span>${a.title.substring(0, 80)}</span><span class="ticker-sep">◆</span>
+      </div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="header-inner container">
+      <div class="header-top">
+        <div class="header-date">${a.pubDate}</div>
+        <div class="header-brand">
+          <a href="../index.html" class="brand-logo">
+            <span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span>
+          </a>
+          <p class="brand-tagline">BLOCKCHAIN&nbsp;•&nbsp;CRYPTOCURRENCY&nbsp;•&nbsp;NARRATIVE JOURNALISM</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-search" id="searchToggle" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button class="btn-theme" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--dark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+            <span class="theme-icon theme-icon--light" style="display:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg></span>
+          </button>
+          <a href="#" class="btn-subscribe">Subscribe</a>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="../stories.html" class="nav-link${navActive === 'Stories' ? ' active' : ''}">Stories</a></li>
+          <li><a href="../conflicts.html" class="nav-link${navActive === 'Conflicts' ? ' active' : ''}">Conflicts</a></li>
+          <li><a href="../people.html" class="nav-link${navActive === 'People' ? ' active' : ''}">People</a></li>
+          <li><a href="../power.html" class="nav-link${navActive === 'Power' ? ' active' : ''}">Power</a></li>
+          <li><a href="../investigations.html" class="nav-link${navActive === 'Investigations' ? ' active' : ''}">Investigations</a></li>
+          <li><a href="../sponsored-articles.html" class="nav-link${navActive === 'Sponsored' ? ' active' : ''}">Sponsored</a></li>
+          <li><a href="../press-release.html" class="nav-link${navActive === 'Press Release' ? ' active' : ''}">Press Release</a></li>
+        </ul>
+        <div class="nav-edition"><span class="edition-dot"></span><span>Editorial Edition</span></div>
+      </nav>
+    </div>
+  </header>
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-overlay-inner">
+      <button class="search-close" id="searchClose" aria-label="Close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <div class="search-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon-big"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="search-input-big" placeholder="Search stories, conflicts, people..." id="searchInput" autocomplete="off" />
+      </div>
+    </div>
+  </div>
+  <div class="article-breadcrumb container">
+    <a href="../index.html" class="breadcrumb-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Homepage
+    </a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="../${a.categoryHref || 'stories.html'}" class="breadcrumb-back">${a.categoryLabel || 'Stories'}</a>
+    ${a.subCategory ? `<span class="breadcrumb-sep">/</span><a href="../${a.subCategoryHref || ''}" class="breadcrumb-back">${a.subCategory}</a>` : ''}
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">${a.title.substring(0, 50)}${a.title.length > 50 ? '...' : ''}</span>
+  </div>
+  <div class="article-hero">
+    <div class="article-hero-img" style="background-image:url('${heroImgActual}')"></div>
+    <div class="article-hero-overlay">
+      <div class="container">
+        <div class="article-hero-tags">${tagsHTML}</div>
+        <h1 class="article-hero-title">${a.title}</h1>
+        <div class="article-hero-meta">
+          <span>${a.byline || 'BY EDITORIAL DESK'}</span>
+          <span class="meta-dot">·</span>
+          <span>${a.readTime}</span>
+          <span class="meta-dot">·</span>
+          <span>${a.pubDate}</span>
+        </div>
+        <div class="article-share">
+          <span class="share-label">SHARE</span>
+          <button class="share-btn" id="copyLink" title="Copy link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="article-layout container">
+    <main class="article-main">
+      <p class="article-lead">${a.lead}</p>
+      ${a.findings && a.findings.length ? `
+      <div class="evidence-block">
+        <div class="eb-header">
+          <span class="eb-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></span>
+          KEY FINDINGS — EVIDENCE LEVEL: MULTI-SOURCE
+        </div>
+        <div class="eb-grid">${findingsHTML}
+        </div>
+      </div>` : ''}
+      ${sectionsHTML}
+      ${a.sources && a.sources.length ? `
+      <div class="article-sources">
+        <div class="sources-header">SOURCE TRANSPARENCY</div>
+        <ul class="sources-list">${sourcesHTML}
+        </ul>
+      </div>` : ''}
+      <div class="article-tags">${tagsHTML}</div>
+    </main>
+    <aside class="article-sidebar">
+      <div class="sidebar-sticky">
+        ${a.sections && a.sections.length ? `
+        <div class="sidebar-widget">
+          <h3 class="widget-title">IN THIS ARTICLE</h3>
+          <ul class="toc-list">${tocHTML}
+          </ul>
+        </div>` : ''}
+        <div class="sidebar-widget widget-follow">
+          <h3 class="widget-title">FOLLOW THIS NARRATIVE</h3>
+          <p class="widget-body">Get updates when this story evolves.</p>
+          <form class="follow-form" onsubmit="return false;">
+            <input type="email" placeholder="Enter your email" class="follow-input" />
+            <button type="submit" class="follow-btn">Follow Narrative</button>
+          </form>
+        </div>
+        <div class="sidebar-widget">
+          <h3 class="widget-title">MOST READ THIS WEEK</h3>
+          <ol class="most-read-list">
+            <li class="most-read-item"><span class="mr-num">01</span><a href="../articles/blackrock-bitcoin-sell-controversy.html" class="mr-headline">The BlackRock Bitcoin sell controversy</a></li>
+            <li class="most-read-item"><span class="mr-num">02</span><a href="../articles/vitalik-buterin-ethereum-foundation-leaner-role.html" class="mr-headline">Vitalik's leaner role at the Ethereum Foundation</a></li>
+            <li class="most-read-item"><span class="mr-num">03</span><a href="../articles/mubadala-565m-bitcoin-etf.html" class="mr-headline">Mubadala's $565M Bitcoin ETF position</a></li>
+            <li class="most-read-item"><span class="mr-num">04</span><a href="../articles/verus-ethereum-exploit-11-6-million.html" class="mr-headline">Verus post-collapse: the $11.6M bridge drain</a></li>
+            <li class="most-read-item"><span class="mr-num">05</span><a href="../articles/thorchain-10-million-exploit-timeline.html" class="mr-headline">ThorChain: from warning to $10M exploit in 97 days</a></li>
+          </ol>
+        </div>
+      </div>
+    </aside>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="../index.html" class="brand-logo brand-logo--footer"><span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span></a>
+          <p class="footer-brand-desc">Narrative-first crypto journalism focused on stories, conflicts, people, power, and investigations.</p>
+          <p class="footer-tagline">Built for clarity. Designed for readers who think deeper.</p>
+        </div>
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Sections</h4>
+          <ul class="footer-nav">
+            <li><a href="../stories.html">Stories</a></li>
+            <li><a href="../conflicts.html">Conflicts</a></li>
+            <li><a href="../people.html">People</a></li>
+            <li><a href="../power.html">Power</a></li>
+            <li><a href="../investigations.html">Investigations</a></li>
+            <li><a href="../sponsored-articles.html">Sponsored</a></li>
+            <li><a href="../press-release.html">Press Release</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Utility</h4>
+          <ul class="footer-nav">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Editorial Standards</a></li>
+            <li><a href="#">Advertise</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter-col">
+          <h4 class="footer-col-title">Newsletter</h4>
+          <p class="newsletter-desc">Get the week's sharpest stories on regulation, power shifts, and market narratives.</p>
+          <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Email address" class="newsletter-input" />
+            <button type="submit" class="newsletter-btn">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 TheCCPress. All rights reserved.</p>
+        <p class="footer-copy">BLOCKCHAIN &nbsp;•&nbsp; CRYPTOCURRENCY &nbsp;•&nbsp; NARRATIVE JOURNALISM</p>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/article.js"></script>
+</body>
+</html>`;
+};
+
+let articles;
+try {
+  articles = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+} catch (e) { console.error(e); process.exit(1); }
+
+// Only generate articles that have a heroThumb (the thumbnail-based ones)
+const toGenerate = articles.filter(a => a.heroThumb);
+toGenerate.forEach(a => {
+  const html = template(a);
+  const filePath = path.join(articlesDir, a.slug + '.html');
+  fs.writeFileSync(filePath, html, 'utf-8');
+  console.log('Generated:', a.slug + '.html');
+});
+console.log('Done. Generated ' + toGenerate.length + ' articles.');
