@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Controversy — Investigations — TheCCPress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="../css/article.css" />
+</head>
+<body>
+  <div class="reading-progress" id="readingProgress"></div>
+  <div class="ticker-bar">
+    <span class="ticker-label">LIVE</span>
+    <div class="ticker-track">
+      <div class="ticker-content">
+        <span>BlackRock Bitcoin ETF — the $136M sell claim and what it reveals about narrative control</span><span class="ticker-sep">◆</span>
+        <span>Mubadala's $565M IBIT position — controversy around who knew first</span><span class="ticker-sep">◆</span>
+        <span>Vitalik's leaner role — the Ethereum community is deeply divided</span><span class="ticker-sep">◆</span>
+        <span>Stablecoin reserve disclosures: what six major issuers are not telling you</span><span class="ticker-sep">◆</span>
+      </div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="header-inner container">
+      <div class="header-top">
+        <div class="header-date">Wednesday, April 15, 2025</div>
+        <div class="header-brand">
+          <a href="../index.html" class="brand-logo">
+            <span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span>
+          </a>
+          <p class="brand-tagline">BLOCKCHAIN&nbsp;•&nbsp;CRYPTOCURRENCY&nbsp;•&nbsp;NARRATIVE JOURNALISM</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-search" id="searchToggle" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button class="btn-theme" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-icon theme-icon--dark"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></span>
+            <span class="theme-icon theme-icon--light" style="display:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg></span>
+          </button>
+          <a href="#" class="btn-subscribe">Subscribe</a>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="../stories.html" class="nav-link">Stories</a></li>
+          <li><a href="../conflicts.html" class="nav-link">Conflicts</a></li>
+          <li><a href="../people.html" class="nav-link">People</a></li>
+          <li><a href="../power.html" class="nav-link">Power</a></li>
+          <li><a href="../investigations.html" class="nav-link active">Investigations</a></li>
+          <li><a href="../sponsored-articles.html" class="nav-link">Sponsored</a></li>
+          <li><a href="../press-release.html" class="nav-link">Press Release</a></li>
+        </ul>
+        <div class="nav-edition"><span class="edition-dot"></span><span>Editorial Edition</span></div>
+      </nav>
+    </div>
+  </header>
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-overlay-inner">
+      <button class="search-close" id="searchClose" aria-label="Close"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <div class="search-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon-big"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="search-input-big" placeholder="Search stories, conflicts, people..." id="searchInput" autocomplete="off" />
+      </div>
+      <div class="search-trending">
+        <span class="search-section-label">Trending</span>
+        <div class="trending-tags">
+          <button class="trending-tag">BlackRock controversy</button>
+          <button class="trending-tag">Vitalik governance</button>
+          <button class="trending-tag">Stablecoin reserves</button>
+          <button class="trending-tag">Narrative control</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="article-breadcrumb container">
+    <a href="../index.html" class="breadcrumb-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Homepage
+    </a>
+    <span class="breadcrumb-sep">/</span>
+    <a href="../investigations.html" class="breadcrumb-back">Investigations</a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">Controversy</span>
+  </div>
+  <div class="category-hero">
+    <div class="category-hero-inner container">
+      <div>
+        <span class="category-hero-tag">INVESTIGATIONS</span>
+        <h1 class="category-hero-title">Controversy</h1>
+        <p class="category-hero-desc">Disputed claims, hidden conflicts of interest, and the stories where powerful actors disagree on what the truth is.</p>
+      </div>
+      <div class="section-filters">
+        <a href="../investigations.html" class="filter-btn">All Investigations</a>
+        <a href="fraud.html" class="filter-btn">Fraud</a>
+        <a href="collapse.html" class="filter-btn">Collapse</a>
+        <a href="controversy.html" class="filter-btn active">Controversy</a>
+      </div>
+    </div>
+  </div>
+  <div class="category-layout container">
+    <div>
+      <div class="listing-grid">
+        <a href="../article.html" class="listing-card">
+          <div class="listing-thumb" style="background-image:url('../mockup%20thumbnail/blackrock-sees-136-28-million-worth-of-bitcoin-sold-telegram-post-says-thumbnail-750x533.jpg')">
+            <div class="listing-thumb-overlay"></div>
+          </div>
+          <div class="listing-body">
+            <div class="card-tags"><span class="tag tag--invest">INVESTIGATIONS</span><span class="tag tag--controversy">CONTROVERSY</span><span class="card-signal signal--escalation">Escalation</span></div>
+            <h3 class="listing-title">The BlackRock Bitcoin sell controversy — we investigated the Telegram source and found no evidence it was real</h3>
+            <p class="listing-desc">The claim that BlackRock sold $136M in Bitcoin moved markets. We spent four days tracing it. Here is what we found, and what it means for how crypto news works now.</p>
+            <div class="listing-meta">APRIL 15, 2025 &nbsp;•&nbsp; 12 MIN READ</div>
+          </div>
+        </a>
+        <a href="../article.html" class="listing-card">
+          <div class="listing-thumb" style="background-image:url('../mockup%20thumbnail/mubadala-holds-more-than-565-million-of-blackrocks-bitcoin-etf-thumbnail-750x533.jpg')">
+            <div class="listing-thumb-overlay"></div>
+          </div>
+          <div class="listing-body">
+            <div class="card-tags"><span class="tag tag--invest">INVESTIGATIONS</span><span class="tag tag--controversy">CONTROVERSY</span><span class="card-signal signal--reaction">Market Reaction</span></div>
+            <h3 class="listing-title">The controversy around who knew about Mubadala's $565M Bitcoin ETF position before the 13F filing</h3>
+            <p class="listing-desc">The position appeared in analyst notes 36 hours before the official filing. We investigated the information chain from Abu Dhabi to US financial media.</p>
+            <div class="listing-meta">APRIL 14, 2025 &nbsp;•&nbsp; 10 MIN READ</div>
+          </div>
+        </a>
+        <a href="../article.html" class="listing-card">
+          <div class="listing-thumb" style="background-image:url('../mockup%20thumbnail/vitalik-buterin-ethereum-foundation-leaner-role-thumbnail-350x250.jpg')">
+            <div class="listing-thumb-overlay"></div>
+          </div>
+          <div class="listing-body">
+            <div class="card-tags"><span class="tag tag--invest">INVESTIGATIONS</span><span class="tag tag--controversy">CONTROVERSY</span><span class="card-signal signal--early">Early Signal</span></div>
+            <h3 class="listing-title">The controversy behind Vitalik's leaner role — what the Ethereum Foundation's internal governance documents show</h3>
+            <p class="listing-desc">Behind the public statement is a multi-year internal debate about centralization risk, succession planning, and how much one person's reputation can prop up a $400B network.</p>
+            <div class="listing-meta">APRIL 13, 2025 &nbsp;•&nbsp; 11 MIN READ</div>
+          </div>
+        </a>
+      </div>
+      <div class="listing-pagination">
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">→</button>
+      </div>
+    </div>
+    <aside class="category-sidebar">
+      <div class="sidebar-widget">
+        <h3 class="widget-title">MOST READ THIS WEEK</h3>
+        <ol class="most-read-list">
+          <li class="most-read-item"><span class="mr-num">01</span><a href="../article.html" class="mr-headline">Why regulators are quietly watching crypto risk</a></li>
+          <li class="most-read-item"><span class="mr-num">02</span><a href="../article.html" class="mr-headline">The new exchange power map after ETF momentum returns</a></li>
+          <li class="most-read-item"><span class="mr-num">03</span><a href="../article.html" class="mr-headline">How founder narratives now steer token market reality</a></li>
+          <li class="most-read-item"><span class="mr-num">04</span><a href="../article.html" class="mr-headline">What collapse setups look like before headlines hit</a></li>
+          <li class="most-read-item"><span class="mr-num">05</span><a href="../article.html" class="mr-headline">Bitcoin's liquidity shift: Signals worth watching</a></li>
+        </ol>
+      </div>
+      <div class="sidebar-widget widget-follow">
+        <h3 class="widget-title">NEWSLETTER</h3>
+        <p class="widget-body">Get the week's sharpest crypto journalism.</p>
+        <form class="follow-form" onsubmit="return false;">
+          <input type="email" placeholder="Enter your email" class="follow-input" />
+          <button type="submit" class="follow-btn">Subscribe</button>
+        </form>
+      </div>
+      <div class="sidebar-widget widget-bias">
+        <div class="widget-header">
+          <h3 class="widget-title">EVIDENCE STANDARDS</h3>
+          <p class="widget-subtitle">How we handle contested claims.</p>
+        </div>
+        <div class="bias-angles">
+          <div class="bias-angle bias-angle--bull"><span class="angle-label">Both sides</span><p>All parties named in controversy coverage are given equal opportunity to respond.</p></div>
+          <div class="bias-angle bias-angle--bear"><span class="angle-label">Evidence</span><p>Claims are assessed against verifiable evidence, not narrative convenience.</p></div>
+          <div class="bias-angle bias-angle--neutral"><span class="angle-label">Corrections</span><p>If our investigation yields findings that differ from our initial framing, we publish corrections prominently.</p></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="../index.html" class="brand-logo brand-logo--footer"><span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span></a>
+          <p class="footer-brand-desc">Narrative-first crypto journalism focused on stories, conflicts, people, power, and investigations.</p>
+          <p class="footer-tagline">Built for clarity. Designed for readers who think deeper.</p>
+        </div>
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Sections</h4>
+          <ul class="footer-nav">
+            <li><a href="../stories.html">Stories</a></li>
+            <li><a href="../conflicts.html">Conflicts</a></li>
+            <li><a href="../people.html">People</a></li>
+            <li><a href="../power.html">Power</a></li>
+            <li><a href="../investigations.html">Investigations</a></li>
+            <li><a href="../sponsored-articles.html">Sponsored</a></li>
+            <li><a href="../press-release.html">Press Release</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Utility</h4>
+          <ul class="footer-nav">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Editorial Standards</a></li>
+            <li><a href="#">Advertise</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter-col">
+          <h4 class="footer-col-title">Newsletter</h4>
+          <p class="newsletter-desc">Get the week's sharpest stories on regulation, power shifts, and market narratives.</p>
+          <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Email address" class="newsletter-input" />
+            <button type="submit" class="newsletter-btn">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 TheCCPress. All rights reserved.</p>
+        <p class="footer-copy">BLOCKCHAIN &nbsp;•&nbsp; CRYPTOCURRENCY &nbsp;•&nbsp; NARRATIVE JOURNALISM</p>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/article.js"></script>
+</body>
+</html>
