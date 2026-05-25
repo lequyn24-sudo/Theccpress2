@@ -67,6 +67,63 @@ if (_fullPowerMapBtn) _fullPowerMapBtn.addEventListener('click', () => openModal
 if (_powerMapClose)   _powerMapClose.addEventListener('click',   () => closeModal(_powerMapModal));
 if (_powerMapModal)   _powerMapModal.addEventListener('click', (e) => { if (e.target === _powerMapModal) closeModal(_powerMapModal); });
 
+// ── Nav Dropdown (homepage) ──
+(function () {
+  const navData = [
+    { label: 'Stories', subs: [
+        { label: 'Market Drama',        path: 'stories/market-drama' },
+        { label: 'Company Sagas',       path: 'stories/company-sagas' },
+        { label: 'Project Rise & Fall', path: 'stories/project-rise-fall' },
+    ]},
+    { label: 'Conflicts', subs: [
+        { label: 'Regulation', path: 'conflicts/regulation' },
+        { label: 'Company',    path: 'conflicts/company' },
+        { label: 'Ideology',   path: 'conflicts/ideology' },
+    ]},
+    { label: 'People', subs: [
+        { label: 'Founders',     path: 'people/founders' },
+        { label: 'Influencers',  path: 'people/influencers' },
+        { label: 'Institutions', path: 'people/institutions' },
+    ]},
+    { label: 'Power', subs: [
+        { label: 'Exchanges',  path: 'power/exchanges' },
+        { label: 'VCs',        path: 'power/vcs' },
+        { label: 'Regulators', path: 'power/regulators' },
+    ]},
+    { label: 'Investigations', subs: [
+        { label: 'Fraud',       path: 'investigations/fraud' },
+        { label: 'Collapse',    path: 'investigations/collapse' },
+        { label: 'Controversy', path: 'investigations/controversy' },
+    ]},
+    { label: 'Sponsored', subs: [
+        { label: 'CMC', path: 'cmc' },
+    ]},
+  ];
+
+  document.querySelectorAll('.nav-list > li').forEach((li) => {
+    const link = li.querySelector('.nav-link');
+    if (!link) return;
+    const data = navData.find((d) => d.label === link.textContent.trim());
+    if (!data) return;
+
+    li.classList.add('nav-item--has-dropdown');
+    link.insertAdjacentHTML('beforeend', '<span class="nav-arrow">▾</span>');
+
+    const ul = document.createElement('ul');
+    ul.className = 'nav-dropdown';
+    data.subs.forEach((sub) => {
+      const li2 = document.createElement('li');
+      const a   = document.createElement('a');
+      a.href      = sub.path + '.html';
+      a.className = 'dropdown-link';
+      a.textContent = sub.label;
+      li2.appendChild(a);
+      ul.appendChild(li2);
+    });
+    li.appendChild(ul);
+  });
+}());
+
 // ── Nav Active State on Scroll ──
 const sections = document.querySelectorAll('.editorial-section[id]');
 const navLinks  = document.querySelectorAll('.nav-link[data-section]');
