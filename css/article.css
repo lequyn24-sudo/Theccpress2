@@ -192,7 +192,8 @@
 /* ── Article Hero ── */
 .article-hero {
   position: relative;
-  aspect-ratio: 16 / 9;
+  height: 520px;
+  max-height: 60vh;
   overflow: hidden;
 }
 
@@ -211,20 +212,24 @@
 .article-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.25) 55%, transparent 100%);
   display: flex;
   align-items: flex-end;
-  padding-bottom: 40px;
+  padding-bottom: 36px;
+}
+
+.article-hero-overlay .container {
+  width: 100%;
 }
 
 .article-hero-tags { display: flex; gap: 6px; margin-bottom: 12px; }
 
 .article-hero-title {
-  font: 700 40px/1.18 var(--font-serif);
+  font: 700 34px/1.2 var(--font-serif);
   color: #fff;
-  letter-spacing: -1px;
-  max-width: 780px;
-  margin-bottom: 14px;
+  letter-spacing: -0.8px;
+  max-width: 760px;
+  margin-bottom: 12px;
 }
 
 .article-hero-meta {
@@ -841,14 +846,16 @@
 @media (max-width: 1000px) {
   .article-layout { grid-template-columns: 1fr; }
   .article-sidebar { display: none; }
-  .article-hero-title { font-size: 28px; }
+  .article-hero { height: 380px; max-height: 55vw; }
+  .article-hero-title { font-size: 26px; }
   .eb-grid { grid-template-columns: repeat(2, 1fr); }
   .category-layout { grid-template-columns: 1fr; }
   .listing-card { grid-template-columns: 140px 1fr; }
 }
 
 @media (max-width: 600px) {
-  .article-hero-title { font-size: 22px; }
+  .article-hero { height: 260px; max-height: 60vw; }
+  .article-hero-title { font-size: 20px; }
   .article-lead { font-size: 16px; }
   .listing-card { grid-template-columns: 1fr; }
   .eb-grid { grid-template-columns: 1fr 1fr; }
