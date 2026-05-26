@@ -366,6 +366,23 @@ input { font-family: inherit; }
 }
 .btn-subscribe:hover { background: var(--gold-light); color: var(--bg-base); }
 
+.btn-profile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: 1px solid var(--border-default);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+.btn-profile:hover { color: var(--gold); border-color: var(--gold); }
+.btn-profile.active { color: var(--gold); border-color: var(--gold); background: var(--gold-dim); }
+
 .main-nav {
   display: flex;
   align-items: center;

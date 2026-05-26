@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile — TheCCPress</title>
+  <meta name="description" content="Manage your TheCCPress reader profile, preferences, watchlist, and subscription." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/article.css" />
+  <style>
+    /* ── Profile Layout ── */
+    .profile-hero {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 2.5rem 0;
+    }
+    .profile-hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .profile-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .profile-hero-info { flex: 1; min-width: 200px; }
+    .profile-hero-name {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 0.4rem;
+    }
+    .profile-hero-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+    }
+    .badge--subscriber {
+      background: var(--gold-dim);
+      color: var(--gold);
+      border: 1px solid rgba(200,165,52,0.25);
+    }
+    .badge--reader {
+      background: var(--blue-dim);
+      color: var(--blue);
+      border: 1px solid rgba(91,141,238,0.25);
+    }
+    .profile-hero-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+    .profile-hero-stats {
+      display: flex;
+      gap: 2rem;
+      flex-shrink: 0;
+    }
+    .profile-stat {
+      text-align: center;
+    }
+    .profile-stat-value {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .profile-stat-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Profile Page Layout ── */
+    .profile-page { padding: 2.5rem 0 5rem; }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .profile-grid { grid-template-columns: 1fr; }
+      .profile-hero-stats { width: 100%; justify-content: space-around; }
+    }
+
+    /* ── Profile Nav ── */
+    .profile-nav-sidebar {
+      position: sticky;
+      top: 1rem;
+    }
+    .profile-nav {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .profile-nav-group { border-bottom: 1px solid var(--border-subtle); }
+    .profile-nav-group:last-child { border-bottom: none; }
+    .profile-nav-group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .profile-nav-group-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .profile-nav-group-arrow {
+      font-size: 0.6rem;
+      color: var(--text-muted);
+      transition: transform 0.15s;
+    }
+    .profile-nav-group.open .profile-nav-group-arrow { transform: rotate(180deg); }
+    .profile-nav-items {
+      display: none;
+      padding: 0.25rem 0 0.5rem;
+    }
+    .profile-nav-group.open .profile-nav-items { display: block; }
+    .profile-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1rem 0.45rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color 0.12s, background 0.12s;
+      border-left: 2px solid transparent;
+      margin-left: 0;
+    }
+    .profile-nav-item:hover { color: var(--text-primary); background: var(--bg-card-hover); }
+    .profile-nav-item.active {
+      color: var(--gold);
+      border-left-color: var(--gold);
+      background: var(--gold-dim);
+    }
+
+    /* ── Profile Content ── */
+    .profile-section { display: none; }
+    .profile-section.active { display: block; }
+    .profile-section-header {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .profile-section-breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+    .profile-section-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 0.3rem;
+    }
+    .profile-section-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Form Elements ── */
+    .profile-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .profile-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+    .profile-field {
+      margin-bottom: 1.25rem;
+    }
+    .profile-field:last-child { margin-bottom: 0; }
+    .profile-label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+    .profile-input, .profile-textarea, .profile-select {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-default);
+      border-radius: 2px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.15s;
+      box-sizing: border-box;
+    }
+    .profile-input:focus, .profile-textarea:focus, .profile-select:focus {
+      border-color: var(--gold);
+    }
+    .profile-textarea { resize: vertical; min-height: 80px; }
+    .profile-input-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+    .profile-field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 600px) { .profile-field-row { grid-template-columns: 1fr; } }
+
+    .profile-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      border: 1px solid var(--border-default);
+      background: transparent;
+      color: var(--text-secondary);
+      transition: all 0.15s;
+    }
+    .profile-btn:hover { color: var(--text-primary); border-color: var(--border-accent); }
+    .profile-btn--primary {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--bg-base);
+    }
+    .profile-btn--primary:hover { background: var(--gold-light); border-color: var(--gold-light); color: var(--bg-base); }
+    .profile-btn--danger {
+      color: var(--red);
+      border-color: rgba(229,83,75,0.3);
+    }
+    .profile-btn--danger:hover { background: var(--red-dim); border-color: var(--red); }
+    .profile-btn-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-top: 1.5rem;
+    }
+
+    /* ── Toggle / Switch ── */
+    .profile-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .profile-toggle-row:last-child { border-bottom: none; }
+    .profile-toggle-info { flex: 1; }
+    .profile-toggle-label {
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      font-weight: 500;
+      margin-bottom: 0.1rem;
+    }
+    .profile-toggle-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+    .toggle-switch {
+      position: relative;
+      width: 40px;
+      height: 22px;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+    .toggle-switch input { display: none; }
+    .toggle-slider {
+      position: absolute;
+      inset: 0;
+      background: var(--border-accent);
+      border-radius: 11px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle-slider::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 3px;
+      top: 3px;
+      background: var(--text-muted);
+      border-radius: 50%;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .toggle-switch input:checked + .toggle-slider { background: var(--gold-dim); border: 1px solid var(--gold); }
+    .toggle-switch input:checked + .toggle-slider::before { transform: translateX(18px); background: var(--gold); }
+
+    /* ── Radio / Checkbox Groups ── */
+    .profile-radio-group, .profile-check-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .profile-radio-group.row, .profile-check-group.row {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .profile-radio-item, .profile-check-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .profile-radio-item input, .profile-check-item input {
+      accent-color: var(--gold);
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+    }
+    .profile-chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .profile-chip {
+      padding: 0.35rem 0.75rem;
+      border: 1px solid var(--border-default);
+      border-radius: 2px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+      user-select: none;
+      font-family: var(--font-mono);
+      letter-spacing: 0.05em;
+    }
+    .profile-chip:hover { border-color: var(--gold); color: var(--gold); }
+    .profile-chip.selected {
+      background: var(--gold-dim);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── Watchlist ── */
+    .watchlist-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+    .asset-tile {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 1rem;
+      position: relative;
+    }
+    .asset-tile:hover { border-color: var(--border-accent); }
+    .asset-symbol {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+    .asset-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .asset-price {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
+    }
+    .asset-change {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .asset-change.pos { color: var(--green); }
+    .asset-change.neg { color: var(--red); }
+    .asset-remove {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 18px;
+      height: 18px;
+      border: none;
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+      transition: color 0.12s;
+    }
+    .asset-remove:hover { color: var(--red); }
+
+    /* ── Portfolio Pie ── */
+    .portfolio-layout { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; align-items: center; }
+    @media (max-width: 600px) { .portfolio-layout { grid-template-columns: 1fr; } }
+    .portfolio-pie {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--gold) 0% 45%,
+        var(--blue) 45% 75%,
+        var(--purple) 75% 90%,
+        var(--text-muted) 90% 100%
+      );
+      box-shadow: 0 0 0 8px var(--bg-card);
+    }
+    .portfolio-legend { display: flex; flex-direction: column; gap: 0.6rem; }
+    .legend-item { display: flex; align-items: center; gap: 0.6rem; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+    .legend-label { font-size: 0.875rem; color: var(--text-secondary); flex: 1; }
+    .legend-pct { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-primary); font-weight: 600; }
+
+    /* ── Saved Articles ── */
+    .saved-articles-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .saved-article-item {
+      display: flex;
+      gap: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 1rem;
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+    .saved-article-item:hover { border-color: var(--border-accent); }
+    .saved-article-thumb {
+      width: 72px;
+      height: 52px;
+      border-radius: 2px;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+      background-color: var(--bg-surface);
+    }
+    .saved-article-info { flex: 1; min-width: 0; }
+    .saved-article-tag {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+    .saved-article-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+      margin-bottom: 0.25rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .saved-article-meta {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .saved-article-remove {
+      border: none;
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 0.75rem;
+      padding: 0.2rem;
+      border-radius: 2px;
+      transition: color 0.12s;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+    .saved-article-remove:hover { color: var(--red); }
+
+    /* ── Activity History ── */
+    .activity-list { display: flex; flex-direction: column; gap: 0; }
+    .activity-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-time {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      padding-top: 0.1rem;
+      min-width: 70px;
+    }
+    .activity-title {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+    .activity-title strong { color: var(--text-primary); }
+
+    /* ── Reputation ── */
+    .reputation-banner {
+      background: linear-gradient(135deg, var(--gold-dim) 0%, transparent 60%);
+      border: 1px solid rgba(200,165,52,0.25);
+      border-radius: 4px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .reputation-badge-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .reputation-badge-name {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.2rem;
+    }
+    .reputation-badge-desc {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 0.75rem;
+    }
+    .achievement-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .achievement-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+    .achievement-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
+    }
+    .achievement-desc { font-size: 0.72rem; color: var(--text-muted); }
+
+    /* ── Social Accounts ── */
+    .social-connect-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .social-connect-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 1rem 1.25rem;
+    }
+    .social-info { display: flex; align-items: center; gap: 0.75rem; }
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .social-name { font-size: 0.875rem; font-weight: 600; color: var(--text-primary); }
+    .social-handle { font-size: 0.75rem; color: var(--text-muted); }
+
+    /* ── Security ── */
+    .security-coming-soon {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      padding: 0.2rem 0.5rem;
+      border-radius: 2px;
+    }
+    .session-list { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+    .session-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: 2px;
+      font-size: 0.85rem;
+    }
+    .session-device { color: var(--text-primary); font-weight: 500; }
+    .session-meta { font-size: 0.75rem; color: var(--text-muted); }
+    .session-current {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green);
+      background: var(--green-dim);
+      padding: 0.15rem 0.4rem;
+      border-radius: 2px;
+    }
+
+    /* ── Subscription plan ── */
+    .plan-card {
+      background: linear-gradient(135deg, var(--gold-dim) 0%, transparent 60%);
+      border: 1px solid rgba(200,165,52,0.3);
+      border-radius: 4px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .plan-badge {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .plan-name {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+    .plan-details { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+    .plan-upgrade {
+      background: var(--bg-card);
+      border: 1px solid var(--border-default);
+      border-radius: 4px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .plan-upgrade-info .plan-upgrade-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+    }
+    .plan-upgrade-info .plan-upgrade-desc { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* ── Info callout ── */
+    .profile-callout {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      background: var(--blue-dim);
+      border: 1px solid rgba(91,141,238,0.2);
+      border-radius: 4px;
+      padding: 0.85rem 1rem;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .profile-callout-icon { color: var(--blue); flex-shrink: 0; margin-top: 0.1rem; }
+  </style>
+</head>
+<body>
+
+  <!-- TICKER -->
+  <div class="ticker-bar">
+    <span class="ticker-label">LIVE</span>
+    <div class="ticker-track">
+      <div class="ticker-content">
+        <span>XRP legal pressure expands across Asia as regulators increase scrutiny</span>
+        <span class="ticker-sep">◆</span>
+        <span>BlackRock crypto earnings beat expectations as ETF flows return</span>
+        <span class="ticker-sep">◆</span>
+        <span>DeFi hacks drop 28% in Q1 but exploit value hits record high</span>
+        <span class="ticker-sep">◆</span>
+        <span>US lawmakers reintroduce stablecoin bill with bipartisan support</span>
+        <span class="ticker-sep">◆</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner container">
+      <div class="header-top">
+        <div class="header-date">Wednesday, April 15, 2025</div>
+        <div class="header-brand">
+          <a href="index.html" class="brand-logo">
+            <span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span>
+          </a>
+          <p class="brand-tagline">BLOCKCHAIN&nbsp;•&nbsp;CRYPTOCURRENCY&nbsp;•&nbsp;NARRATIVE JOURNALISM</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-search" id="searchToggle" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button class="btn-theme" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+            <span class="theme-icon theme-icon--dark">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </span>
+            <span class="theme-icon theme-icon--light" style="display:none">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            </span>
+          </button>
+          <a href="profile.html" class="btn-profile active" aria-label="My Profile" title="My Profile">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </a>
+          <a href="subscribe.html" class="btn-subscribe">Subscribe</a>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="stories.html" class="nav-link">Stories</a></li>
+          <li><a href="conflicts.html" class="nav-link">Conflicts</a></li>
+          <li><a href="people.html" class="nav-link">People</a></li>
+          <li><a href="power.html" class="nav-link">Power</a></li>
+          <li><a href="investigations.html" class="nav-link">Investigations</a></li>
+          <li><a href="sponsored-articles.html" class="nav-link">Sponsored</a></li>
+          <li><a href="press-release.html" class="nav-link">Press Release</a></li>
+        </ul>
+        <div class="nav-edition">
+          <span class="edition-dot"></span>
+          <span>Editorial Edition</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PROFILE HERO -->
+  <div class="profile-hero">
+    <div class="container">
+      <div class="profile-hero-inner">
+        <div class="profile-avatar">AC</div>
+        <div class="profile-hero-info">
+          <h1 class="profile-hero-name">Alex Chen</h1>
+          <div class="profile-hero-badges">
+            <span class="badge badge--subscriber">Free Subscriber</span>
+            <span class="badge badge--reader">Narrative Analyst</span>
+          </div>
+          <p class="profile-hero-meta">Member since January 2025&nbsp;·&nbsp;Singapore&nbsp;·&nbsp;@alexchen</p>
+        </div>
+        <div class="profile-hero-stats">
+          <div class="profile-stat">
+            <span class="profile-stat-value">47</span>
+            <span class="profile-stat-label">Articles Read</span>
+          </div>
+          <div class="profile-stat">
+            <span class="profile-stat-value">4</span>
+            <span class="profile-stat-label">Saved</span>
+          </div>
+          <div class="profile-stat">
+            <span class="profile-stat-value">12</span>
+            <span class="profile-stat-label">Week Streak</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE BODY -->
+  <div class="profile-page">
+    <div class="container">
+      <div class="profile-grid">
+
+        <!-- ── LEFT NAV ── -->
+        <aside class="profile-nav-sidebar">
+          <nav class="profile-nav" id="profileNav">
+
+            <div class="profile-nav-group open" data-group="account">
+              <div class="profile-nav-group-header">
+                <span class="profile-nav-group-label">Account</span>
+                <span class="profile-nav-group-arrow">▼</span>
+              </div>
+              <div class="profile-nav-items">
+                <div class="profile-nav-item active" data-section="account-identity">Identity</div>
+                <div class="profile-nav-item" data-section="account-social">Social Accounts</div>
+                <div class="profile-nav-item" data-section="account-security">Security</div>
+                <div class="profile-nav-item" data-section="account-subscription">Subscription</div>
+              </div>
+            </div>
+
+            <div class="profile-nav-group open" data-group="personalization">
+              <div class="profile-nav-group-header">
+                <span class="profile-nav-group-label">Personalization</span>
+                <span class="profile-nav-group-arrow">▼</span>
+              </div>
+              <div class="profile-nav-items">
+                <div class="profile-nav-item" data-section="pref-preferences">Preferences</div>
+                <div class="profile-nav-item" data-section="pref-notifications">Notifications</div>
+                <div class="profile-nav-item" data-section="pref-investment">Investment Profile</div>
+              </div>
+            </div>
+
+            <div class="profile-nav-group open" data-group="content">
+              <div class="profile-nav-group-header">
+                <span class="profile-nav-group-label">Content</span>
+                <span class="profile-nav-group-arrow">▼</span>
+              </div>
+              <div class="profile-nav-items">
+                <div class="profile-nav-item" data-section="content-watchlist">Watchlist</div>
+                <div class="profile-nav-item" data-section="content-portfolio">Portfolio</div>
+                <div class="profile-nav-item" data-section="content-saved">Saved Articles</div>
+                <div class="profile-nav-item" data-section="content-activity">Activity History</div>
+              </div>
+            </div>
+
+            <div class="profile-nav-group open" data-group="community">
+              <div class="profile-nav-group-header">
+                <span class="profile-nav-group-label">Community</span>
+                <span class="profile-nav-group-arrow">▼</span>
+              </div>
+              <div class="profile-nav-items">
+                <div class="profile-nav-item" data-section="community-reputation">Reputation</div>
+              </div>
+            </div>
+
+          </nav>
+        </aside>
+
+        <!-- ── RIGHT CONTENT ── -->
+        <main class="profile-content">
+
+          <!-- ACCOUNT › IDENTITY -->
+          <div class="profile-section active" id="account-identity">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Account</p>
+              <h2 class="profile-section-title">Identity</h2>
+              <p class="profile-section-desc">Your public reader profile and display information.</p>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Display Information</p>
+              <div class="profile-field-row">
+                <div class="profile-field">
+                  <label class="profile-label">First name</label>
+                  <input type="text" class="profile-input" value="Alex" />
+                </div>
+                <div class="profile-field">
+                  <label class="profile-label">Last name</label>
+                  <input type="text" class="profile-input" value="Chen" />
+                </div>
+              </div>
+              <div class="profile-field">
+                <label class="profile-label">Username</label>
+                <input type="text" class="profile-input" value="@alexchen" />
+                <p class="profile-input-hint">Visible on comments and saved article lists.</p>
+              </div>
+              <div class="profile-field">
+                <label class="profile-label">Bio</label>
+                <textarea class="profile-textarea">Crypto market analyst. Watching regulatory risk, DeFi structure, and power shifts in the digital asset space.</textarea>
+              </div>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Location &amp; Time</p>
+              <div class="profile-field-row">
+                <div class="profile-field">
+                  <label class="profile-label">Location</label>
+                  <input type="text" class="profile-input" value="Singapore" />
+                </div>
+                <div class="profile-field">
+                  <label class="profile-label">Timezone</label>
+                  <select class="profile-select">
+                    <option>Asia/Singapore (UTC+8)</option>
+                    <option>Asia/Tokyo (UTC+9)</option>
+                    <option>America/New_York (UTC-5)</option>
+                    <option>Europe/London (UTC+0)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="profile-btn-row">
+              <button class="profile-btn profile-btn--primary">Save Changes</button>
+              <button class="profile-btn">Cancel</button>
+            </div>
+          </div>
+
+          <!-- ACCOUNT › SOCIAL ACCOUNTS -->
+          <div class="profile-section" id="account-social">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Account</p>
+              <h2 class="profile-section-title">Social Accounts</h2>
+              <p class="profile-section-desc">Connect your social accounts to sync your reader identity.</p>
+            </div>
+            <div class="social-connect-list">
+              <div class="social-connect-item">
+                <div class="social-info">
+                  <div class="social-icon" style="background:#1a1a2e;color:#1d9bf0;font-size:0.9rem;">𝕏</div>
+                  <div>
+                    <div class="social-name">X (Twitter)</div>
+                    <div class="social-handle">@alexchen_crypto</div>
+                  </div>
+                </div>
+                <button class="profile-btn profile-btn--danger">Disconnect</button>
+              </div>
+              <div class="social-connect-item">
+                <div class="social-info">
+                  <div class="social-icon" style="background:#0d1117;color:#7b9aff;">✈</div>
+                  <div>
+                    <div class="social-name">Telegram</div>
+                    <div class="social-handle">Not connected</div>
+                  </div>
+                </div>
+                <button class="profile-btn">Connect</button>
+              </div>
+              <div class="social-connect-item">
+                <div class="social-info">
+                  <div class="social-icon" style="background:#120e1e;color:#9b8dff;">◈</div>
+                  <div>
+                    <div class="social-name">Discord</div>
+                    <div class="social-handle">Not connected</div>
+                  </div>
+                </div>
+                <button class="profile-btn">Connect</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- ACCOUNT › SECURITY -->
+          <div class="profile-section" id="account-security">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Account</p>
+              <h2 class="profile-section-title">Security</h2>
+              <p class="profile-section-desc">Manage your password, two-factor authentication, and active sessions.</p>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Change Password</p>
+              <div class="profile-field">
+                <label class="profile-label">Current password</label>
+                <input type="password" class="profile-input" placeholder="••••••••" />
+              </div>
+              <div class="profile-field">
+                <label class="profile-label">New password</label>
+                <input type="password" class="profile-input" placeholder="••••••••" />
+              </div>
+              <div class="profile-field">
+                <label class="profile-label">Confirm new password</label>
+                <input type="password" class="profile-input" placeholder="••••••••" />
+              </div>
+              <div class="profile-btn-row">
+                <button class="profile-btn profile-btn--primary">Update Password</button>
+              </div>
+            </div>
+            <div class="profile-card">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+                <p class="profile-card-title" style="margin-bottom:0">Two-Factor Authentication</p>
+                <span class="security-coming-soon">Coming Soon</span>
+              </div>
+              <p style="font-size:0.85rem;color:var(--text-muted);line-height:1.6;">Enhanced 2FA support with authenticator apps and hardware keys is coming in a future update.</p>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Active Sessions</p>
+              <div class="session-list">
+                <div class="session-item">
+                  <div>
+                    <div class="session-device">Chrome · macOS</div>
+                    <div class="session-meta">Singapore · Last active now</div>
+                  </div>
+                  <span class="session-current">Current</span>
+                </div>
+                <div class="session-item">
+                  <div>
+                    <div class="session-device">Safari · iPhone</div>
+                    <div class="session-meta">Singapore · Last active 2h ago</div>
+                  </div>
+                  <button class="profile-btn profile-btn--danger" style="font-size:0.65rem;padding:0.3rem 0.7rem;">Revoke</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ACCOUNT › SUBSCRIPTION -->
+          <div class="profile-section" id="account-subscription">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Account</p>
+              <h2 class="profile-section-title">Subscription</h2>
+              <p class="profile-section-desc">Your current plan and billing details.</p>
+            </div>
+            <div class="plan-card">
+              <p class="plan-badge">Current Plan</p>
+              <p class="plan-name">Free Newsletter</p>
+              <p class="plan-details">
+                The Weekly Briefing — delivered every Friday morning.<br/>
+                Member since <strong>January 15, 2025</strong>&nbsp;·&nbsp;Next edition: <strong>April 18, 2025</strong>
+              </p>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">What's included</p>
+              <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.6rem;">
+                <li style="display:flex;gap:0.5rem;align-items:flex-start;font-size:0.875rem;color:var(--text-secondary);">
+                  <span style="color:var(--gold);flex-shrink:0">✓</span> Weekly digest of top stories across all sections
+                </li>
+                <li style="display:flex;gap:0.5rem;align-items:flex-start;font-size:0.875rem;color:var(--text-secondary);">
+                  <span style="color:var(--gold);flex-shrink:0">✓</span> Narrative trail updates for evolving stories
+                </li>
+                <li style="display:flex;gap:0.5rem;align-items:flex-start;font-size:0.875rem;color:var(--text-secondary);">
+                  <span style="color:var(--gold);flex-shrink:0">✓</span> Editorial thesis on the week's biggest conflict
+                </li>
+                <li style="display:flex;gap:0.5rem;align-items:flex-start;font-size:0.875rem;color:var(--text-secondary);">
+                  <span style="color:var(--gold);flex-shrink:0">✓</span> Power map shifts and investigation updates
+                </li>
+              </ul>
+            </div>
+            <div class="plan-upgrade">
+              <div class="plan-upgrade-info">
+                <div class="plan-upgrade-title">Premium Intelligence — Coming Soon</div>
+                <div class="plan-upgrade-desc">Daily briefings, source documents, investigation archives, and early access to deep dives.</div>
+              </div>
+              <button class="profile-btn" style="opacity:0.6;pointer-events:none;white-space:nowrap;">Notify Me</button>
+            </div>
+          </div>
+
+          <!-- PERSONALIZATION › PREFERENCES -->
+          <div class="profile-section" id="pref-preferences">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Personalization</p>
+              <h2 class="profile-section-title">Preferences</h2>
+              <p class="profile-section-desc">Customize how TheCCPress looks and feels for you.</p>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Appearance</p>
+              <div class="profile-toggle-row">
+                <div class="profile-toggle-info">
+                  <div class="profile-toggle-label">Dark Mode</div>
+                  <div class="profile-toggle-desc">Uses the dark editorial theme. Toggle applies site-wide.</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="prefThemeToggle" checked />
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="profile-toggle-row">
+                <div class="profile-toggle-info">
+                  <div class="profile-toggle-label">Compact Cards</div>
+                  <div class="profile-toggle-desc">Show more articles per screen with reduced card spacing.</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" />
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="profile-toggle-row">
+                <div class="profile-toggle-info">
+                  <div class="profile-toggle-label">Serif Body Text</div>
+                  <div class="profile-toggle-desc">Use Playfair Display for article body text (classic editorial style).</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" />
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Sections of Interest</p>
+              <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:0.75rem;">Select the sections you follow most — used to prioritize your homepage feed.</p>
+              <div class="profile-chip-group" id="sectionChips">
+                <span class="profile-chip selected" data-val="stories">Stories</span>
+                <span class="profile-chip selected" data-val="conflicts">Conflicts</span>
+                <span class="profile-chip" data-val="people">People</span>
+                <span class="profile-chip selected" data-val="power">Power</span>
+                <span class="profile-chip selected" data-val="investigations">Investigations</span>
+                <span class="profile-chip" data-val="sponsored">Sponsored</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PERSONALIZATION › NOTIFICATIONS -->
+          <div class="profile-section" id="pref-notifications">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Personalization</p>
+              <h2 class="profile-section-title">Notifications</h2>
+              <p class="profile-section-desc">Control what TheCCPress sends to your inbox.</p>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Email Digest</p>
+              <div class="profile-field">
+                <label class="profile-label">Delivery frequency</label>
+                <div class="profile-radio-group">
+                  <label class="profile-radio-item"><input type="radio" name="digest" value="weekly" checked /> Weekly (Friday mornings)</label>
+                  <label class="profile-radio-item"><input type="radio" name="digest" value="daily" /> Daily briefing (coming soon)</label>
+                  <label class="profile-radio-item"><input type="radio" name="digest" value="never" /> Paused</label>
+                </div>
+              </div>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Alert Types</p>
+              <div class="profile-toggle-row">
+                <div class="profile-toggle-info">
+                  <div class="profile-toggle-label">Breaking News</div>
+                  <div class="profile-toggle-desc">Immediate alerts for major market events and regulatory decisions.</div>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
+              </div>
+              <div class="profile-toggle-row">
+                <div class="profile-toggle-info">
+                  <div class="profile-toggle-label">Narrative Trail Updates</div>
+                  <div class="profile-toggle-desc">When an evolving story you're tracking gets a new chapter.</div>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
+              </div>
+              <div class="profile-toggle-row">
+                <div class="profile-toggle-info">
+                  <div class="profile-toggle-label">Investigation Findings</div>
+                  <div class="profile-toggle-desc">New findings published in the Investigations section.</div>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" /><span class="toggle-slider"></span></label>
+              </div>
+              <div class="profile-toggle-row">
+                <div class="profile-toggle-info">
+                  <div class="profile-toggle-label">Weekly Power Map</div>
+                  <div class="profile-toggle-desc">Summary of influence shifts across exchanges, VCs, and regulators.</div>
+                </div>
+                <label class="toggle-switch"><input type="checkbox" checked /><span class="toggle-slider"></span></label>
+              </div>
+            </div>
+          </div>
+
+          <!-- PERSONALIZATION › INVESTMENT PROFILE -->
+          <div class="profile-section" id="pref-investment">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Personalization</p>
+              <h2 class="profile-section-title">Investment Profile</h2>
+              <p class="profile-section-desc">Tell us about your market lens so we can surface the most relevant analysis.</p>
+            </div>
+            <div class="profile-callout">
+              <span class="profile-callout-icon">ℹ</span>
+              This information is private and used only to personalize your content experience. It is never shared or sold.
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Risk Tolerance</p>
+              <div class="profile-radio-group row">
+                <label class="profile-radio-item"><input type="radio" name="risk" value="conservative" /> Conservative</label>
+                <label class="profile-radio-item"><input type="radio" name="risk" value="moderate" checked /> Moderate</label>
+                <label class="profile-radio-item"><input type="radio" name="risk" value="aggressive" /> Aggressive</label>
+              </div>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Portfolio Size</p>
+              <div class="profile-radio-group">
+                <label class="profile-radio-item"><input type="radio" name="portfolio" value="small" /> Under $10,000</label>
+                <label class="profile-radio-item"><input type="radio" name="portfolio" value="mid" checked /> $10,000 – $100,000</label>
+                <label class="profile-radio-item"><input type="radio" name="portfolio" value="large" /> Over $100,000</label>
+              </div>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Focus Sectors</p>
+              <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:0.5rem;">Select all that apply. Shapes which sections and sub-categories are prioritized for you.</p>
+              <div class="profile-chip-group" id="sectorChips">
+                <span class="profile-chip selected">DeFi</span>
+                <span class="profile-chip">NFTs</span>
+                <span class="profile-chip selected">Layer 1 &amp; L2</span>
+                <span class="profile-chip selected">Macro &amp; ETFs</span>
+                <span class="profile-chip">Stablecoins</span>
+                <span class="profile-chip selected">Regulation</span>
+                <span class="profile-chip">Mining</span>
+                <span class="profile-chip">DAOs &amp; Governance</span>
+              </div>
+            </div>
+            <div class="profile-btn-row">
+              <button class="profile-btn profile-btn--primary">Save Profile</button>
+            </div>
+          </div>
+
+          <!-- CONTENT › WATCHLIST -->
+          <div class="profile-section" id="content-watchlist">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Content</p>
+              <h2 class="profile-section-title">Watchlist</h2>
+              <p class="profile-section-desc">Track crypto assets relevant to the narratives you follow.</p>
+            </div>
+            <div class="watchlist-grid" id="watchlistGrid">
+              <div class="asset-tile">
+                <button class="asset-remove" title="Remove">✕</button>
+                <div class="asset-symbol">BTC</div>
+                <div class="asset-name">Bitcoin</div>
+                <div class="asset-price">$84,200</div>
+                <div class="asset-change pos">▲ +2.3%</div>
+              </div>
+              <div class="asset-tile">
+                <button class="asset-remove" title="Remove">✕</button>
+                <div class="asset-symbol">ETH</div>
+                <div class="asset-name">Ethereum</div>
+                <div class="asset-price">$1,840</div>
+                <div class="asset-change pos">▲ +0.8%</div>
+              </div>
+              <div class="asset-tile">
+                <button class="asset-remove" title="Remove">✕</button>
+                <div class="asset-symbol">XRP</div>
+                <div class="asset-name">XRP</div>
+                <div class="asset-price">$0.52</div>
+                <div class="asset-change neg">▼ −1.2%</div>
+              </div>
+              <div class="asset-tile">
+                <button class="asset-remove" title="Remove">✕</button>
+                <div class="asset-symbol">SOL</div>
+                <div class="asset-name">Solana</div>
+                <div class="asset-price">$131</div>
+                <div class="asset-change pos">▲ +4.1%</div>
+              </div>
+              <div class="asset-tile" style="border-style:dashed;display:flex;align-items:center;justify-content:center;min-height:100px;cursor:pointer;color:var(--text-muted);font-size:0.8rem;gap:0.4rem;transition:color 0.15s,border-color 0.15s;" id="addAssetBtn">
+                <span>+</span><span>Add Asset</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONTENT › PORTFOLIO -->
+          <div class="profile-section" id="content-portfolio">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Content</p>
+              <h2 class="profile-section-title">Portfolio</h2>
+              <p class="profile-section-desc">Self-reported allocation used to personalize your investment analysis feed.</p>
+            </div>
+            <div class="profile-callout">
+              <span class="profile-callout-icon">ℹ</span>
+              This is a personal reference tool. No wallet connections or real account data are used.
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Allocation Overview</p>
+              <div class="portfolio-layout">
+                <div class="portfolio-pie"></div>
+                <div class="portfolio-legend">
+                  <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--gold)"></div>
+                    <span class="legend-label">Bitcoin (BTC)</span>
+                    <span class="legend-pct">45%</span>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--blue)"></div>
+                    <span class="legend-label">Ethereum (ETH)</span>
+                    <span class="legend-pct">30%</span>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--purple)"></div>
+                    <span class="legend-label">Solana (SOL)</span>
+                    <span class="legend-pct">15%</span>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-dot" style="background:var(--text-muted)"></div>
+                    <span class="legend-label">Others</span>
+                    <span class="legend-pct">10%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="profile-btn-row">
+              <button class="profile-btn profile-btn--primary">Edit Allocation</button>
+            </div>
+          </div>
+
+          <!-- CONTENT › SAVED ARTICLES -->
+          <div class="profile-section" id="content-saved">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Content</p>
+              <h2 class="profile-section-title">Saved Articles</h2>
+              <p class="profile-section-desc">Articles you've bookmarked for later reading.</p>
+            </div>
+            <div class="saved-articles-list">
+              <a href="articles/xrp-asia-regulatory-pressure.html" class="saved-article-item">
+                <div class="saved-article-thumb" style="background-image:url('mockup%20thumbnail/us-core-ppi-rises-5-2-yoy-vs-4-3-expected-bitcoin-reacts-thumbnail-750x533.jpg')"></div>
+                <div class="saved-article-info">
+                  <div class="saved-article-tag">Conflicts · Regulation</div>
+                  <div class="saved-article-title">XRP Settlement Pressure Reshapes Asia's Crypto Risk Map</div>
+                  <div class="saved-article-meta">Saved April 15, 2025 · 12 min read</div>
+                </div>
+                <button class="saved-article-remove" onclick="event.preventDefault();this.closest('.saved-article-item').remove();" title="Remove">✕</button>
+              </a>
+              <a href="articles/mubadala-565m-bitcoin-etf.html" class="saved-article-item">
+                <div class="saved-article-thumb" style="background-image:url('mockup%20thumbnail/mubadala-holds-more-than-565-million-of-blackrocks-bitcoin-etf-thumbnail-750x533.jpg')"></div>
+                <div class="saved-article-info">
+                  <div class="saved-article-tag">Stories · Market Drama</div>
+                  <div class="saved-article-title">Mubadala Holds More Than $565M of BlackRock's Bitcoin ETF</div>
+                  <div class="saved-article-meta">Saved April 12, 2025 · 9 min read</div>
+                </div>
+                <button class="saved-article-remove" onclick="event.preventDefault();this.closest('.saved-article-item').remove();" title="Remove">✕</button>
+              </a>
+              <a href="articles/thorchain-10-million-exploit-timeline.html" class="saved-article-item">
+                <div class="saved-article-thumb" style="background-image:url('mockup%20thumbnail/defi-hacks-drop-28-in-q1-but-exploit-value-hits-record-high-thumbnail-750x533.jpg')"></div>
+                <div class="saved-article-info">
+                  <div class="saved-article-tag">Investigations · Fraud</div>
+                  <div class="saved-article-title">THORChain's $10M Exploit: A Complete Timeline</div>
+                  <div class="saved-article-meta">Saved April 10, 2025 · 15 min read</div>
+                </div>
+                <button class="saved-article-remove" onclick="event.preventDefault();this.closest('.saved-article-item').remove();" title="Remove">✕</button>
+              </a>
+              <a href="articles/vitalik-buterin-ethereum-foundation-leaner-role.html" class="saved-article-item">
+                <div class="saved-article-thumb" style="background-image:url('mockup%20thumbnail/vitalik-buterin-ethereum-foundation-leaner-role-thumbnail-350x250.jpg')"></div>
+                <div class="saved-article-info">
+                  <div class="saved-article-tag">People · Founders</div>
+                  <div class="saved-article-title">Vitalik Buterin Steps Back: What a Leaner Ethereum Foundation Means</div>
+                  <div class="saved-article-meta">Saved April 8, 2025 · 8 min read</div>
+                </div>
+                <button class="saved-article-remove" onclick="event.preventDefault();this.closest('.saved-article-item').remove();" title="Remove">✕</button>
+              </a>
+            </div>
+          </div>
+
+          <!-- CONTENT › ACTIVITY HISTORY -->
+          <div class="profile-section" id="content-activity">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Content</p>
+              <h2 class="profile-section-title">Activity History</h2>
+              <p class="profile-section-desc">Your recent reading activity on TheCCPress.</p>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Recently Read</p>
+              <div class="activity-list">
+                <div class="activity-item">
+                  <span class="activity-time">2h ago</span>
+                  <span class="activity-title"><strong>XRP Settlement Pressure Reshapes Asia's Crypto Risk Map</strong> — read in full</span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-time">4h ago</span>
+                  <span class="activity-title"><strong>Mubadala Holds More Than $565M of BlackRock's Bitcoin ETF</strong> — read in full</span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-time">Yesterday</span>
+                  <span class="activity-title"><strong>DeFi Development Corp's SOL per Share Up 108% YoY</strong> — read in full</span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-time">2d ago</span>
+                  <span class="activity-title"><strong>Vitalik Buterin Steps Back: What a Leaner Ethereum Foundation Means</strong> — read in full</span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-time">3d ago</span>
+                  <span class="activity-title"><strong>THORChain's $10M Exploit: A Complete Timeline</strong> — read in full</span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-time">3d ago</span>
+                  <span class="activity-title"><strong>Tokenized Stocks Hit $1.6B on Ethereum</strong> — skimmed</span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-time">1w ago</span>
+                  <span class="activity-title"><strong>JPMorgan's Tokenized Money Market Fund</strong> — read in full</span>
+                </div>
+                <div class="activity-item">
+                  <span class="activity-time">1w ago</span>
+                  <span class="activity-title"><strong>Hong Kong Stablecoin Pilots Hit Ethereum Testnet</strong> — skimmed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMMUNITY › REPUTATION -->
+          <div class="profile-section" id="community-reputation">
+            <div class="profile-section-header">
+              <p class="profile-section-breadcrumb">Community</p>
+              <h2 class="profile-section-title">Reputation</h2>
+              <p class="profile-section-desc">Your reader badge, engagement score, and community standing.</p>
+            </div>
+            <div class="reputation-banner">
+              <div class="reputation-badge-icon">⭑</div>
+              <div>
+                <div class="reputation-badge-name">Narrative Analyst</div>
+                <div class="reputation-badge-desc">Awarded to readers who consistently engage with deep-dive content and multi-source narratives.</div>
+              </div>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Engagement Score</p>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center;">
+                <div>
+                  <div style="font-family:var(--font-mono);font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1;">47</div>
+                  <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.25rem;">Articles Read</div>
+                </div>
+                <div>
+                  <div style="font-family:var(--font-mono);font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1;">12</div>
+                  <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.25rem;">Week Streak</div>
+                </div>
+                <div>
+                  <div style="font-family:var(--font-mono);font-size:1.6rem;font-weight:700;color:var(--gold);line-height:1;">89%</div>
+                  <div style="font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:0.25rem;">Completion Rate</div>
+                </div>
+              </div>
+            </div>
+            <div class="profile-card">
+              <p class="profile-card-title">Achievements</p>
+              <div class="achievement-grid">
+                <div class="achievement-item">
+                  <div class="achievement-icon">📰</div>
+                  <div class="achievement-name">Early Subscriber</div>
+                  <div class="achievement-desc">Joined in the first 100 subscribers</div>
+                </div>
+                <div class="achievement-item">
+                  <div class="achievement-icon">🔥</div>
+                  <div class="achievement-name">Power Reader</div>
+                  <div class="achievement-desc">Read 25+ articles in a single month</div>
+                </div>
+                <div class="achievement-item">
+                  <div class="achievement-icon">⚖</div>
+                  <div class="achievement-name">Conflict Tracker</div>
+                  <div class="achievement-desc">Completed 5 full Conflicts narratives</div>
+                </div>
+                <div class="achievement-item" style="opacity:0.45;">
+                  <div class="achievement-icon">🔭</div>
+                  <div class="achievement-name">Investigation Hound</div>
+                  <div class="achievement-desc">Read all articles in 3 investigations</div>
+                </div>
+                <div class="achievement-item" style="opacity:0.45;">
+                  <div class="achievement-icon">🗺</div>
+                  <div class="achievement-name">Power Mapper</div>
+                  <div class="achievement-desc">Viewed 10 full power maps</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand-logo brand-logo--footer">
+            <span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span>
+          </a>
+          <p class="footer-brand-desc">Narrative-first crypto journalism. We follow the conflicts, the people, and the power — not just the prices.</p>
+          <p class="footer-tagline">BLOCKCHAIN&nbsp;·&nbsp;CRYPTOCURRENCY&nbsp;·&nbsp;NARRATIVE JOURNALISM</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Sections</h4>
+          <ul class="footer-nav">
+            <li><a href="stories.html">Stories</a></li>
+            <li><a href="conflicts.html">Conflicts</a></li>
+            <li><a href="people.html">People</a></li>
+            <li><a href="power.html">Power</a></li>
+            <li><a href="investigations.html">Investigations</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Reader</h4>
+          <ul class="footer-nav">
+            <li><a href="subscribe.html">Subscribe</a></li>
+            <li><a href="profile.html">My Profile</a></li>
+            <li><a href="profile.html#content-saved">Saved Articles</a></li>
+            <li><a href="profile.html#content-watchlist">Watchlist</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter-col">
+          <h4 class="footer-col-title">Newsletter</h4>
+          <p class="newsletter-desc">Get the week's sharpest stories on regulation, power shifts, and market narratives.</p>
+          <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Email address" class="newsletter-input" />
+            <button type="submit" class="newsletter-btn">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 TheCCPress. All rights reserved.</p>
+        <p class="footer-copy">BLOCKCHAIN&nbsp;·&nbsp;CRYPTOCURRENCY&nbsp;·&nbsp;NARRATIVE JOURNALISM</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    // Section switching
+    function showSection(id) {
+      document.querySelectorAll('.profile-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.profile-nav-item').forEach(n => n.classList.remove('active'));
+      const section = document.getElementById(id);
+      const navItem = document.querySelector(`.profile-nav-item[data-section="${id}"]`);
+      if (section) section.classList.add('active');
+      if (navItem) navItem.classList.add('active');
+    }
+
+    // Nav group accordion
+    document.querySelectorAll('.profile-nav-group-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.parentElement.classList.toggle('open');
+      });
+    });
+
+    // Nav item click
+    document.querySelectorAll('.profile-nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const id = item.dataset.section;
+        showSection(id);
+        history.replaceState(null, '', '#' + id);
+        // Ensure group is open
+        const group = item.closest('.profile-nav-group');
+        if (group) group.classList.add('open');
+      });
+    });
+
+    // Handle URL hash on load
+    const hash = location.hash.slice(1);
+    if (hash && document.getElementById(hash)) {
+      showSection(hash);
+    }
+
+    // Chip toggle
+    document.querySelectorAll('.profile-chip').forEach(chip => {
+      chip.addEventListener('click', () => chip.classList.toggle('selected'));
+    });
+
+    // Theme toggle sync (preferences page)
+    const prefThemeToggle = document.getElementById('prefThemeToggle');
+    if (prefThemeToggle) {
+      const current = document.documentElement.dataset.theme;
+      prefThemeToggle.checked = current !== 'light';
+      prefThemeToggle.addEventListener('change', () => {
+        const next = prefThemeToggle.checked ? 'dark' : 'light';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem('ccp-theme', next);
+      });
+    }
+
+    // Watchlist remove
+    document.querySelectorAll('.asset-remove').forEach(btn => {
+      btn.addEventListener('click', () => btn.closest('.asset-tile').remove());
+    });
+
+    // Add asset tile hover
+    const addBtn = document.getElementById('addAssetBtn');
+    if (addBtn) {
+      addBtn.addEventListener('mouseenter', () => {
+        addBtn.style.color = 'var(--gold)';
+        addBtn.style.borderColor = 'var(--gold)';
+      });
+      addBtn.addEventListener('mouseleave', () => {
+        addBtn.style.color = '';
+        addBtn.style.borderColor = '';
+      });
+    }
+  </script>
+</body>
+</html>
