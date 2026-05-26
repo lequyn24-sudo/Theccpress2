@@ -590,9 +590,10 @@ input { font-family: inherit; }
 
 .hero-thumbnail {
   position: relative;
-  height: 260px;
+  aspect-ratio: 750 / 533;
   overflow: hidden;
   flex-shrink: 0;
+  width: 100%;
 }
 
 .hero-thumbnail-img {
