@@ -93,35 +93,6 @@
 }
 
 /* Light mode overrides that can't be done via variables alone */
-[data-theme="light"] .hero-visual {
-  background: linear-gradient(135deg, #ddd8ce 0%, #ccc6ba 40%, #d4cfc5 100%);
-}
-
-[data-theme="light"] .hero-visual::before {
-  background:
-    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(160,124,16,0.08) 0%, transparent 70%),
-    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(40,90,200,0.06) 0%, transparent 60%);
-}
-
-[data-theme="light"] .vg-node {
-  background: rgba(0,0,0,0.04);
-  border-color: rgba(0,0,0,0.10);
-  color: rgba(0,0,0,0.30);
-}
-
-[data-theme="light"] .vg-node--lg {
-  color: var(--gold);
-  border-color: rgba(160,124,16,0.25);
-  background: rgba(160,124,16,0.06);
-}
-
-[data-theme="light"] .vg-node--md {
-  color: rgba(40,90,200,0.6);
-  border-color: rgba(40,90,200,0.15);
-}
-
-[data-theme="light"] .hero-visual::after { color: rgba(0,0,0,0.18); }
-
 [data-theme="light"] .ticker-bar { background: #c8322c; }
 [data-theme="light"] .ticker-label { background: #a8201a; }
 
@@ -617,77 +588,28 @@ input { font-family: inherit; }
   border-right: 1px solid var(--border-default);
 }
 
-.hero-visual {
-  height: 220px;
-  background: linear-gradient(135deg, #0d1020 0%, #111730 40%, #0d1525 100%);
+.hero-thumbnail {
   position: relative;
+  height: 220px;
   overflow: hidden;
   flex-shrink: 0;
 }
 
-.hero-visual::before {
-  content: '';
+.hero-thumbnail-img {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(200,165,52,0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 80% 60% at 20% 80%, rgba(91,141,238,0.07) 0%, transparent 60%);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--bg-card);
+  transition: transform 0.4s ease;
 }
 
-.hero-visual-inner {
+.hero-thumbnail:hover .hero-thumbnail-img { transform: scale(1.02); }
+
+.hero-thumbnail-link {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-visual-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
-}
-
-.vg-node {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-sm);
-  padding: 8px 16px;
-  font: 700 11px/1 var(--font-mono);
-  letter-spacing: 2px;
-  color: rgba(255,255,255,0.35);
-  text-transform: uppercase;
-  transition: all 0.3s;
-}
-
-.vg-node--lg {
-  padding: 12px 24px;
-  font-size: 14px;
-  color: var(--gold);
-  border-color: rgba(200,165,52,0.2);
-  background: rgba(200,165,52,0.05);
-}
-
-.vg-node--md {
-  padding: 10px 18px;
-  font-size: 12px;
-  color: rgba(91,141,238,0.7);
-  border-color: rgba(91,141,238,0.15);
-}
-
-.hero-visual::after {
-  content: 'XRP • REGULATION • ASIA • RISK MAP';
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  font: 500 9px/1 var(--font-mono);
-  letter-spacing: 3px;
-  color: rgba(255,255,255,0.15);
-  white-space: nowrap;
+  display: block;
 }
 
 .hero-content {
