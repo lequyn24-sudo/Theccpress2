@@ -590,7 +590,7 @@ input { font-family: inherit; }
 
 .hero-thumbnail {
   position: relative;
-  height: 220px;
+  height: 260px;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -613,7 +613,7 @@ input { font-family: inherit; }
 }
 
 .hero-content {
-  flex: 1;
+  flex: none;
   padding: 24px 28px;
   display: flex;
   flex-direction: column;
@@ -768,7 +768,7 @@ input { font-family: inherit; }
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: auto;
+  margin-top: 0;
 }
 
 .action-label {
