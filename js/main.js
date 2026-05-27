@@ -217,9 +217,10 @@ const cardObserver = new IntersectionObserver(
   }
 );
 
-// Card click navigation: generate slug from title and navigate to article page
+// Card click navigation: use explicit onclick if set, else generate slug from title
 document.querySelectorAll('.editorial-card').forEach(card => {
   card.addEventListener('click', () => {
+    if (card.getAttribute('onclick')) return; // inline onclick already handles navigation
     const titleEl = card.querySelector('.card-title');
     if (!titleEl) return;
     const title = titleEl.textContent.trim();

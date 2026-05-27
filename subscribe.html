@@ -1,0 +1,479 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscribe — TheCCPress</title>
+  <meta name="description" content="Subscribe to TheCCPress for weekly narrative-first crypto journalism on stories, conflicts, people, power, and investigations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/article.css" />
+  <style>
+    .subscribe-hero {
+      background: var(--surface-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 4rem 0 3rem;
+      text-align: center;
+    }
+    .subscribe-hero-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .subscribe-hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .subscribe-hero-desc {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .subscribe-page {
+      padding: 3rem 0 5rem;
+    }
+    .subscribe-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .subscribe-grid { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    .subscribe-main-card {
+      background: var(--surface-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 2.5rem;
+    }
+    .subscribe-plan-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .subscribe-plan-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .subscribe-plan-price {
+      font-family: var(--font-mono);
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+    .subscribe-plan-price span {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+    .subscribe-plan-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .subscribe-features {
+      list-style: none;
+      margin: 0 0 2rem 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .subscribe-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+    .subscribe-features li .check-icon {
+      color: var(--gold);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .subscribe-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .subscribe-input {
+      padding: 0.75rem 1rem;
+      background: var(--surface-secondary);
+      border: 1px solid var(--border-default);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .subscribe-input:focus {
+      border-color: var(--gold);
+    }
+    .subscribe-submit-btn {
+      padding: 0.85rem 1.5rem;
+      background: var(--gold);
+      color: var(--bg-base);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      border-radius: 2px;
+      transition: opacity 0.15s;
+    }
+    .subscribe-submit-btn:hover { opacity: 0.85; }
+    .subscribe-privacy {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .subscribe-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .subscribe-info-card {
+      background: var(--surface-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 4px;
+      padding: 1.5rem;
+    }
+    .subscribe-info-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+    .subscribe-info-body {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .subscribe-frequency-list {
+      list-style: none;
+      margin: 0.75rem 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .subscribe-frequency-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .subscribe-frequency-list li:last-child { border-bottom: none; }
+    .freq-name { color: var(--text-primary); font-weight: 500; }
+    .freq-cadence {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      text-transform: uppercase;
+    }
+    .subscribe-sample-list {
+      list-style: none;
+      margin: 0.75rem 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .subscribe-sample-list li {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      padding-left: 0.75rem;
+      border-left: 2px solid var(--border-default);
+      line-height: 1.4;
+    }
+    .subscribe-success {
+      display: none;
+      background: var(--surface-secondary);
+      border: 1px solid var(--gold);
+      border-radius: 4px;
+      padding: 2rem;
+      text-align: center;
+    }
+    .subscribe-success .success-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .subscribe-success-title {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+    .subscribe-success-body {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="ticker-bar">
+    <span class="ticker-label">LIVE</span>
+    <div class="ticker-track">
+      <div class="ticker-content">
+        <span>XRP legal pressure expands across Asia as regulators increase scrutiny</span>
+        <span class="ticker-sep">◆</span>
+        <span>Bitcoin ETF flows return — institutional demand reshaping cycle leadership</span>
+        <span class="ticker-sep">◆</span>
+        <span>DeFi hacks drop 28% in Q1 but exploit value hits record high</span>
+        <span class="ticker-sep">◆</span>
+        <span>US lawmakers reintroduce stablecoin bill with bipartisan support</span>
+        <span class="ticker-sep">◆</span>
+      </div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="header-inner container">
+      <div class="header-top">
+        <div class="header-date">Wednesday, April 15, 2025</div>
+        <div class="header-brand">
+          <a href="index.html" class="brand-logo">
+            <span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span>
+          </a>
+          <p class="brand-tagline">BLOCKCHAIN&nbsp;•&nbsp;CRYPTOCURRENCY&nbsp;•&nbsp;NARRATIVE JOURNALISM</p>
+        </div>
+        <div class="header-actions">
+          <button class="btn-search" id="searchToggle" aria-label="Search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </button>
+          <button class="btn-theme" id="themeToggle" aria-label="Toggle theme" title="Toggle light/dark mode">
+            <span class="theme-icon theme-icon--dark">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </span>
+            <span class="theme-icon theme-icon--light" style="display:none">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
+            </span>
+          </button>
+          <a href="profile.html" class="btn-profile" aria-label="My Profile" title="My Profile"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+          <a href="subscribe.html" class="btn-subscribe" style="opacity:0.5;pointer-events:none">Subscribe</a>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="stories.html" class="nav-link">Stories</a></li>
+          <li><a href="conflicts.html" class="nav-link">Conflicts</a></li>
+          <li><a href="people.html" class="nav-link">People</a></li>
+          <li><a href="power.html" class="nav-link">Power</a></li>
+          <li><a href="investigations.html" class="nav-link">Investigations</a></li>
+          <li><a href="sponsored-articles.html" class="nav-link">Sponsored</a></li>
+          <li><a href="press-release.html" class="nav-link">Press Release</a></li>
+        </ul>
+        <div class="nav-edition">
+          <span class="edition-dot"></span>
+          <span>Editorial Edition</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-overlay-inner">
+      <button class="search-close" id="searchClose" aria-label="Close search">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="search-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon-big"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="search-input-big" placeholder="Search stories, conflicts, people..." id="searchInput" autocomplete="off" />
+      </div>
+    </div>
+  </div>
+
+  <div class="article-breadcrumb container">
+    <a href="index.html" class="breadcrumb-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      Homepage
+    </a>
+    <span class="breadcrumb-sep">/</span>
+    <span class="breadcrumb-current">Subscribe</span>
+  </div>
+
+  <div class="subscribe-hero">
+    <div class="container">
+      <span class="subscribe-hero-label">Newsletter</span>
+      <h1 class="subscribe-hero-title">Sharp crypto journalism, delivered weekly</h1>
+      <p class="subscribe-hero-desc">Narrative-first coverage on regulation, power shifts, market stories, and investigations — curated for readers who think deeper.</p>
+    </div>
+  </div>
+
+  <div class="subscribe-page">
+    <div class="container">
+      <div class="subscribe-grid">
+
+        <!-- MAIN SUBSCRIBE CARD -->
+        <div class="subscribe-main-card">
+          <span class="subscribe-plan-label">Free Newsletter</span>
+          <div class="subscribe-plan-title">The Weekly Briefing</div>
+          <div class="subscribe-plan-price">Free <span>/ forever</span></div>
+          <p class="subscribe-plan-desc">Get the week's sharpest crypto stories — hand-curated by the TheCCPress editorial desk every Friday morning.</p>
+          <ul class="subscribe-features">
+            <li><span class="check-icon">✓</span> Weekly digest of top stories across all sections</li>
+            <li><span class="check-icon">✓</span> Narrative trail updates for evolving stories</li>
+            <li><span class="check-icon">✓</span> Editorial thesis on the week's biggest conflict</li>
+            <li><span class="check-icon">✓</span> Power map shifts and investigation updates</li>
+            <li><span class="check-icon">✓</span> Curated reading for regulation and market movements</li>
+            <li><span class="check-icon">✓</span> No ads. No sponsored content mixed in.</li>
+          </ul>
+          <div class="subscribe-form" id="subscribeForm">
+            <input type="text" placeholder="First name" class="subscribe-input" id="subFirstName" />
+            <input type="email" placeholder="Email address" class="subscribe-input" id="subEmail" required />
+            <button type="button" class="subscribe-submit-btn" id="subscribeBtn">Subscribe — It's Free</button>
+            <p class="subscribe-privacy">By subscribing you agree to receive weekly emails from TheCCPress. No spam. Unsubscribe at any time.</p>
+          </div>
+          <div class="subscribe-success" id="subscribeSuccess">
+            <div class="success-icon">✓</div>
+            <div class="subscribe-success-title">You're in.</div>
+            <p class="subscribe-success-body">Check your inbox for a confirmation email. Your first briefing arrives this Friday.</p>
+          </div>
+        </div>
+
+        <!-- SIDEBAR INFO -->
+        <div class="subscribe-sidebar">
+
+          <div class="subscribe-info-card">
+            <div class="subscribe-info-title">What You'll Receive</div>
+            <p class="subscribe-info-body">Every Friday, a curated briefing built around the week's most important crypto narratives — not just news, but the context and conflict behind it.</p>
+            <ul class="subscribe-frequency-list">
+              <li>
+                <span class="freq-name">Weekly Briefing</span>
+                <span class="freq-cadence">Every Friday</span>
+              </li>
+              <li>
+                <span class="freq-name">Breaking Alerts</span>
+                <span class="freq-cadence">When it matters</span>
+              </li>
+              <li>
+                <span class="freq-name">Investigation Updates</span>
+                <span class="freq-cadence">As published</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="subscribe-info-card">
+            <div class="subscribe-info-title">Sample Coverage</div>
+            <p class="subscribe-info-body">Recent briefings have covered:</p>
+            <ul class="subscribe-sample-list">
+              <li>XRP settlement pressure reshaping Asia's exchange risk landscape</li>
+              <li>BlackRock Telegram controversy and what on-chain data actually showed</li>
+              <li>How ThorChain's $10M exploit unfolded across 97 days</li>
+              <li>Mubadala's $565M Bitcoin ETF position and its sovereign signal</li>
+              <li>Vitalik's evolving role at the Ethereum Foundation</li>
+            </ul>
+          </div>
+
+          <div class="subscribe-info-card">
+            <div class="subscribe-info-title">Our Editorial Standards</div>
+            <p class="subscribe-info-body">TheCCPress operates with full editorial independence. Sponsored content is kept strictly separate. Our newsletter contains only editorial coverage — never paid placements.</p>
+            <br/>
+            <p class="subscribe-info-body">We verify claims through on-chain data, legal documents, direct sources, and cross-market analysis before publication.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner container">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <a href="index.html" class="brand-logo brand-logo--footer">
+            <span class="brand-the">the</span><span class="brand-cc">cc</span><span class="brand-press">press</span>
+          </a>
+          <p class="footer-brand-desc">Narrative-first crypto journalism focused on stories, conflicts, people, power, and investigations.</p>
+          <p class="footer-tagline">Built for clarity. Designed for readers who think deeper.</p>
+        </div>
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Sections</h4>
+          <ul class="footer-nav">
+            <li><a href="stories.html">Stories</a></li>
+            <li><a href="conflicts.html">Conflicts</a></li>
+            <li><a href="people.html">People</a></li>
+            <li><a href="power.html">Power</a></li>
+            <li><a href="investigations.html">Investigations</a></li>
+            <li><a href="sponsored-articles.html">Sponsored</a></li>
+            <li><a href="press-release.html">Press Release</a></li>
+          </ul>
+        </div>
+        <div class="footer-nav-col">
+          <h4 class="footer-col-title">Utility</h4>
+          <ul class="footer-nav">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Editorial Standards</a></li>
+            <li><a href="#">Content Disclaimer</a></li>
+            <li><a href="#">Advertise</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-newsletter-col">
+          <h4 class="footer-col-title">Newsletter</h4>
+          <p class="newsletter-desc">Get the week's sharpest stories on regulation, power shifts, and market narratives.</p>
+          <form class="newsletter-form" onsubmit="return false;">
+            <input type="email" placeholder="Email address" class="newsletter-input" />
+            <button type="submit" class="newsletter-btn">Join</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 TheCCPress. All rights reserved.</p>
+        <p class="footer-copy">BLOCKCHAIN &nbsp;•&nbsp; CRYPTOCURRENCY &nbsp;•&nbsp; NARRATIVE JOURNALISM</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/article.js"></script>
+  <script>
+    document.getElementById('subscribeBtn').addEventListener('click', function() {
+      const email = document.getElementById('subEmail').value.trim();
+      if (!email || !email.includes('@')) {
+        document.getElementById('subEmail').focus();
+        return;
+      }
+      document.getElementById('subscribeForm').style.display = 'none';
+      document.getElementById('subscribeSuccess').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
