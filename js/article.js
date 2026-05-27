@@ -237,6 +237,31 @@ document.querySelectorAll('.newsletter-form, .follow-form').forEach((form) => {
   });
 });
 
+// ── Hamburger Nav Toggle ──
+(function () {
+  const toggle = document.getElementById('navToggle');
+  const nav    = document.querySelector('.main-nav');
+  if (!toggle || !nav) return;
+
+  function closeNav() {
+    nav.classList.remove('nav--open');
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('nav--open');
+    toggle.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('nav--open') && !nav.contains(e.target) && !toggle.contains(e.target)) closeNav();
+  });
+
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+}());
+
 // ── Nav Dropdown ──
 (function () {
   const navData = [

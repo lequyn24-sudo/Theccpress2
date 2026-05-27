@@ -217,10 +217,12 @@ const cardObserver = new IntersectionObserver(
   }
 );
 
-// Card click navigation: use explicit onclick if set, else generate slug from title
+// Card click navigation: respect inline onclick, interactive elements, or custom data-href
 document.querySelectorAll('.editorial-card').forEach(card => {
-  card.addEventListener('click', () => {
-    if (card.getAttribute('onclick')) return; // inline onclick already handles navigation
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('a') || e.target.closest('button')) return;
+    if (card.hasAttribute('onclick') || card.hasAttribute('data-href')) return;
+
     const titleEl = card.querySelector('.card-title');
     if (!titleEl) return;
     const title = titleEl.textContent.trim();
@@ -275,6 +277,31 @@ document.querySelectorAll('.action-btn').forEach((btn) => {
     }
   });
 });
+
+// ── Hamburger Nav Toggle ──
+(function () {
+  const toggle = document.getElementById('navToggle');
+  const nav    = document.querySelector('.main-nav');
+  if (!toggle || !nav) return;
+
+  function closeNav() {
+    nav.classList.remove('nav--open');
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('nav--open');
+    toggle.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('nav--open') && !nav.contains(e.target) && !toggle.contains(e.target)) closeNav();
+  });
+
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+}());
 
 // ── Hero vg-nodes hover pulse ──
 document.querySelectorAll('.vg-node').forEach((node) => {

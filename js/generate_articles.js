@@ -9,17 +9,17 @@ if (!fs.existsSync(articlesDir)) fs.mkdirSync(articlesDir, { recursive: true });
 const template = (a) => {
   // Resolve hero image: check for 750x533 first, fall back to 350x250
   let heroImgActual;
-  if (a.heroThumb) {
-    const large = path.join(__dirname, '..', 'mockup thumbnail', a.heroThumb + '-thumbnail-750x533.jpg');
-    const small = path.join(__dirname, '..', 'mockup thumbnail', a.heroThumb + '-thumbnail-350x250.jpg');
+  const thumbBase = a.heroThumb || a.slug;
+  if (thumbBase) {
+    const large = path.join(__dirname, '..', 'mockup thumbnail', thumbBase + '-thumbnail-750x533.jpg');
+    const small = path.join(__dirname, '..', 'mockup thumbnail', thumbBase + '-thumbnail-350x250.jpg');
     if (fs.existsSync(large)) {
-      heroImgActual = '../mockup%20thumbnail/' + a.heroThumb + '-thumbnail-750x533.jpg';
+      heroImgActual = '../mockup%20thumbnail/' + thumbBase + '-thumbnail-750x533.jpg';
     } else if (fs.existsSync(small)) {
-      heroImgActual = '../mockup%20thumbnail/' + a.heroThumb + '-thumbnail-350x250.jpg';
-    } else {
-      heroImgActual = '../mockup%20thumbnail/' + a.heroThumb + '-thumbnail-750x533.jpg';
+      heroImgActual = '../mockup%20thumbnail/' + thumbBase + '-thumbnail-350x250.jpg';
     }
-  } else {
+  }
+  if (!heroImgActual) {
     heroImgActual = a.heroImage || 'https://picsum.photos/seed/article/1600/700?grayscale';
   }
 
@@ -36,12 +36,22 @@ const template = (a) => {
   const tocHTML = (a.sections || []).map(s => `
             <li><a href="#${s.id}" class="toc-link">${s.title}</a></li>`).join('');
 
-  const tagsHTML = (a.tags || []).map(t => `<span class="tag ${t.cls}">${t.label}</span>`).join('');
+  const tagsHTML = (a.tags || []).map(t => {
+    if (typeof t === 'string') {
+      const cls = 'tag--' + t.toLowerCase();
+      const label = t.toUpperCase();
+      return `<span class="tag ${cls}">${label}</span>`;
+    }
+    return `<span class="tag ${t.cls}">${t.label}</span>`;
+  }).join('');
 
   const sourcesHTML = (a.sources || []).map(s => `
           <li><span class="source-type">${s.type}</span> — ${s.text}</li>`).join('');
 
-  const navActive = a.navActive || a.categoryLabel || '';
+  const category = a.category || (a.tags && typeof a.tags[0] === 'string' ? a.tags[0] : (a.tags && a.tags[0] && a.tags[0].label ? a.tags[0].label.toLowerCase() : 'stories'));
+  const categoryLabel = a.categoryLabel || (category.charAt(0).toUpperCase() + category.slice(1));
+  const categoryHref = a.categoryHref || `${category}.html`;
+  const navActive = a.navActive || categoryLabel;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -116,7 +126,7 @@ const template = (a) => {
       Homepage
     </a>
     <span class="breadcrumb-sep">/</span>
-    <a href="../${a.categoryHref || 'stories.html'}" class="breadcrumb-back">${a.categoryLabel || 'Stories'}</a>
+    <a href="../${categoryHref}" class="breadcrumb-back">${categoryLabel}</a>
     ${a.subCategory ? `<span class="breadcrumb-sep">/</span><a href="../${a.subCategoryHref || ''}" class="breadcrumb-back">${a.subCategory}</a>` : ''}
     <span class="breadcrumb-sep">/</span>
     <span class="breadcrumb-current">${a.title.substring(0, 50)}${a.title.length > 50 ? '...' : ''}</span>
@@ -155,6 +165,7 @@ const template = (a) => {
         <div class="eb-grid">${findingsHTML}
         </div>
       </div>` : ''}
+      ${a.bodyHTML || ''}
       ${sectionsHTML}
       ${a.sources && a.sources.length ? `
       <div class="article-sources">
@@ -247,8 +258,8 @@ try {
   articles = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
 } catch (e) { console.error(e); process.exit(1); }
 
-// Only generate articles that have a heroThumb (the thumbnail-based ones)
-const toGenerate = articles.filter(a => a.heroThumb);
+// Generate all articles from the database
+const toGenerate = articles;
 toGenerate.forEach(a => {
   const html = template(a);
   const filePath = path.join(articlesDir, a.slug + '.html');
