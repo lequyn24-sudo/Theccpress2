@@ -1132,6 +1132,11 @@ input { font-family: inherit; }
   color: var(--text-secondary);
 }
 
+.section-title--press {
+  font-size: 22px;
+  color: var(--text-secondary);
+}
+
 .section-desc {
   font: 400 13px/1 var(--font-sans);
   color: var(--text-muted);
