@@ -357,9 +357,9 @@
           <p class="section-desc">Market narratives, company news, and analyst takes—curated by editors.</p>
         </div>
         <div class="section-filters" data-group="stories">
-          <a href="stories/market-drama.html" class="filter-btn">Market Drama</a>
-          <a href="stories/company-sagas.html" class="filter-btn">Company Sagas</a>
-          <a href="stories/project-rise-fall.html" class="filter-btn">Project Rise &amp; Fall</a>
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="market-drama">Market Drama</button>
+          <button class="filter-btn" data-filter="company-moves">Company Moves</button>
         </div>
       </div>
       <div class="cards-grid cards-grid--3">
@@ -539,9 +539,14 @@
           <h2 class="section-title">Investigations</h2>
           <p class="section-desc">Deep reporting on hidden risks, fraud patterns, collision signals, and controversies.</p>
         </div>
+        <div class="section-filters" data-group="investigations">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="exploit">Exploit</button>
+          <button class="filter-btn" data-filter="fraud">Fraud</button>
+        </div>
       </div>
       <div class="cards-grid cards-grid--2">
-        <article class="editorial-card editorial-card--conflict" onclick="location.href='articles/thorchain-10-million-exploit-timeline.html'">
+        <article class="editorial-card editorial-card--conflict" data-category="exploit" onclick="location.href='articles/thorchain-10-million-exploit-timeline.html'">
           <div class="card-thumb card-thumb--red" style="background-image:url('mockup%20thumbnail/thorchain-reportedly-suffers-10-million-exploit-affecting-assets-across-multiple-blockchains-thumbnail-750x533.jpg')"><div class="card-thumb-overlay"></div>
             <span class="risk-badge risk--high">COLLAPSE</span>
           </div>
@@ -551,7 +556,7 @@
             <div class="card-meta">APRIL 15, 2025 &nbsp;•&nbsp; 9 MIN READ</div>
           </div>
         </article>
-        <article class="editorial-card editorial-card--conflict" onclick="location.href='articles/verus-ethereum-exploit-11-6-million.html'">
+        <article class="editorial-card editorial-card--conflict" data-category="fraud" onclick="location.href='articles/verus-ethereum-exploit-11-6-million.html'">
           <div class="card-thumb card-thumb--orange" style="background-image:url('mockup%20thumbnail/verus-ethereum-exploit-drains-11-6-million-thumbnail-350x250.jpg')"><div class="card-thumb-overlay"></div>
             <span class="risk-badge risk--high">FRAUD</span>
           </div>
