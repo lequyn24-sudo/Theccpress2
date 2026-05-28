@@ -1025,6 +1025,18 @@ input { font-family: inherit; }
 
 .follow-btn:hover { background: var(--gold-light); }
 
+/* Stack follow form vertically inside narrow sidebars */
+.sidebar-right .follow-form,
+.sidebar-sticky .follow-form {
+  flex-direction: column;
+}
+.sidebar-right .follow-input,
+.sidebar-sticky .follow-input,
+.sidebar-right .follow-btn,
+.sidebar-sticky .follow-btn {
+  width: 100%;
+}
+
 /* Report Checklist */
 .report-checklist {
   display: flex;
