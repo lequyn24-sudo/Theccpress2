@@ -456,7 +456,7 @@
 }
 
 /* ── Article Sidebar ── */
-.article-sidebar { position: relative; }
+.article-sidebar { position: relative; min-width: 0; overflow: hidden; }
 
 .sidebar-sticky {
   position: sticky;
