@@ -838,8 +838,6 @@ input { font-family: inherit; }
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow-y: auto;
-  max-height: 900px;
 }
 
 .sidebar-widget {
