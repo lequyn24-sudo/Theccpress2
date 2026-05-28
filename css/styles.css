@@ -505,7 +505,7 @@ input { font-family: inherit; }
   display: grid;
   grid-template-columns: 260px 1fr 280px;
   gap: 0;
-  height: 800px;
+  height: 960px;
 }
 
 /* ── Left Sidebar ── */
@@ -619,9 +619,7 @@ input { font-family: inherit; }
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--border-default);
-  overflow-y: auto;
-  overflow-x: hidden;
-  min-height: 0;
+  overflow: hidden;
 }
 
 .hero-thumbnail {
@@ -1659,7 +1657,7 @@ input { font-family: inherit; }
   }
   .hero-grid { height: auto; }
   .sidebar-left, .sidebar-right { border: none; border-bottom: 1px solid var(--border-default); overflow-y: visible; overflow-x: visible; min-height: auto; }
-  .hero-center { border: none; overflow-y: visible; overflow-x: visible; min-height: auto; }
+  .hero-center { border: none; overflow: visible; }
   .hero-thumbnail { max-height: none; }
   .header-top { grid-template-columns: 1fr; text-align: center; gap: 8px; }
   .header-date, .header-actions { justify-self: center; }
