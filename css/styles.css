@@ -541,7 +541,6 @@ input { font-family: inherit; }
 }
 
 .news-feed {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0;
