@@ -516,7 +516,7 @@ input { font-family: inherit; }
   flex-direction: column;
   gap: 16px;
   overflow-y: auto;
-  max-height: 640px;
+  min-height: 0;
 }
 
 .sidebar-header {
@@ -840,7 +840,7 @@ input { font-family: inherit; }
   flex-direction: column;
   gap: 20px;
   overflow-y: auto;
-  max-height: 640px;
+  min-height: 0;
 }
 
 .sidebar-widget {
